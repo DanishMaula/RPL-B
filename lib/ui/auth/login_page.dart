@@ -39,112 +39,100 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<LoginProvider>(builder: (context, value, _) {
-        if (value.state == ResultState.loading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('RPL B',
-                    style: getBlackTextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 24)),
-                const SizedBox(height: 16),
-                Image.asset(
-                  'assets/images/photo_login.png',
-                  width: double.infinity,
-                  height: 230,
-                ),
-                const SizedBox(height: 16),
-                TextfieldWidget(
-                  hintText: 'Email',
-                  controller: _emailController,
-                  obscureText: false,
-                  prefixIcon: const Icon(Icons.email),
-                ),
-                TextfieldWidget(
-                  hintText: 'Password',
-                  controller: _passwordController,
-                  obscureText: true,
-                  prefixIcon: const Icon(Icons.password),
-                ),
-                ButtonWidget(
-                  color: Colors.redAccent,
-                  onPressed: () async {
-                    final _validationInput = validationInput();
+      body: SafeArea(
+        child: Consumer<LoginProvider>(builder: (context, value, _) {
+          if (value.state == ResultState.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('RPL B',
+                        style: getBlackTextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24)),
+                    const SizedBox(height: 16),
+                    Image.asset(
+                      'assets/images/photo_login.png',
+                      width: double.infinity,
+                      height: 230,
+                    ),
+                    const SizedBox(height: 16),
+                    TextfieldWidget(
+                      hintText: 'Email',
+                      controller: _emailController,
+                      obscureText: false,
+                      prefixIcon: const Icon(Icons.email),
+                    ),
+                    TextfieldWidget(
+                      hintText: 'Password',
+                      controller: _passwordController,
+                      obscureText: true,
+                      prefixIcon: const Icon(Icons.password),
+                    ),
+                    ButtonWidget(
+                      color: Colors.redAccent,
+                      onPressed: () async {
+                        final _validationInput = validationInput();
 
-                    if (_validationInput != null) {
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(_validationInput),
-                          backgroundColor: Colors.redAccent,
-                        ),
-                      );
-                    } else {
-                      value.loginWithEmailPassword(
-                          _emailController.text, _passwordController.text);
+                        if (_validationInput != null) {
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(_validationInput),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          );
+                        }
+                        value.loginWithEmailPassword(_emailController.text,
+                            _passwordController.text, context);
 
-                      if (value.state == ResultState.hasData) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Login Success'),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, HomePage.routeName, (route) => false);
-                      }
-                      if (value.state == ResultState.error) {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(value.message ?? 'Login Failed'),
-                            backgroundColor: Colors.redAccent,
-                          ),
-                        );
-                      }
-                      // try {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Login Process'),
-                      //       backgroundColor: Colors.green,
-                      //     ),
-                      //   );
-                      //   await _auth.signInWithEmailAndPassword(
-                      //       email: _emailController.text,
-                      //       password: _passwordController.text);
-                      //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //       content: Text('Login Success'),
-                      //       backgroundColor: Colors.green,
-                      //     ),
-                      //   );
-                      //   Navigator.pushNamedAndRemoveUntil(
-                      //       context, HomePage.routeName, (route) => false);
-                      // } on FirebaseAuthException catch (e) {
-                      //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     SnackBar(
-                      //       content: Text(e.message ?? 'Login Failed'),
-                      //       backgroundColor: Colors.redAccent,
-                      //     ),
-                      //   );
-                      // }
-                    }
-                  },
-                  child: Text(
-                    'Login',
-                    style: getWhiteTextStyle(),
-                  ),
+                        // else {
+                        //   await value.loginWithEmailPassword(
+                        //       _emailController.text,
+                        //       _passwordController.text,
+                        //       context);
+
+                        //   if (value.state == ResultState.hasData) {
+                        //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(
+                        //         content: Text('Login Success'),
+                        //         backgroundColor: Colors.green,
+                        //       ),
+                        //     );
+                        //     Navigator.pushNamedAndRemoveUntil(
+                        //         context, HomePage.routeName, (route) => false);
+                        //   }
+                        //   if (value.state == ResultState.error) {
+                        //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //       SnackBar(
+                        //         content: Text(value.message ?? 'Login Failed'),
+                        //         backgroundColor: Colors.redAccent,
+                        //       ),
+                        //     );
+                        //   }
+                        // }
+                      },
+                      child: Text(
+                        'Login',
+                        style: getWhiteTextStyle(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Not RPL B? see as guest.',
+                        ))
+                  ],
                 ),
-              ],
-            ));
-      }),
+              ));
+        }),
+      ),
     );
   }
 }

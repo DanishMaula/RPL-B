@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
 import 'package:rpl_b/common_widget/text_field_widget.dart';
-import 'package:rpl_b/ui/auth/sign_in_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -40,7 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Register your Account',
+            Text('Login',
                 style: getBlackTextStyle(
                     fontWeight: FontWeight.bold, fontSize: 24)),
             const SizedBox(height: 16),
@@ -72,26 +71,25 @@ class _RegisterPageState extends State<RegisterPage> {
                   try {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Registering...'),
+                        content: Text('Login Process'),
                         backgroundColor: Colors.green,
                       ),
                     );
-                    await _auth.createUserWithEmailAndPassword(
+                    await _auth.signInWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text);
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Register Success'),
+                        content: Text('Login Success'),
                         backgroundColor: Colors.green,
                       ),
                     );
-                    Navigator.pushNamed(context, SignInPage.routeName);
                   } on FirebaseAuthException catch (e) {
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(e.message ?? 'Register Failed'),
+                        content: Text(e.message ?? 'Login Failed'),
                         backgroundColor: Colors.redAccent,
                       ),
                     );
@@ -99,7 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 }
               },
               child: Text(
-                'Register',
+                'Login',
                 style: getWhiteTextStyle(),
               ),
             )

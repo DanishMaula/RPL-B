@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:rpl_b/ui/auth/register_page.dart';
-import 'package:rpl_b/ui/auth/sign_in_page.dart';
+import 'package:rpl_b/ui/auth/login_page.dart';
 
 import 'firebase_options.dart';
 
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: RegisterPage(),
         routes: {
-          SignInPage.routeName: (context) => const SignInPage(),
         });
   }
 }

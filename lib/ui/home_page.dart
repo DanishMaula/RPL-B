@@ -39,8 +39,62 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+
+        // Events
+        ListWidget(
+          title: "Events",
+          onSeeAllClick: (){},
+          listView: ListView(),
+        ),
+
+        // People
+        ListWidget(
+          title: "People",
+          onSeeAllClick: (){},
+          listView: ListView(),
+        ),
+
+        // For You
+        ListWidget(
+          title: "For you",
+          onSeeAllClick: (){},
+          listView: ListView(),
+        ),
       ],
     ));
+  }
+}
+
+class ListWidget<T> extends StatelessWidget {
+  final String title;
+  final void Function()? onSeeAllClick;
+  final BoxScrollView listView;
+  
+
+  const ListWidget({
+    super.key, required this.title, this.onSeeAllClick, required this.listView,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Miqmeq",
+              style: getTitleTextStyle(),
+            ),
+            Text(
+              "See all",
+              style: getSeeAllTextStyle()
+            ),
+          ],
+        ),
+        listView
+      ],
+    );
   }
 }
 

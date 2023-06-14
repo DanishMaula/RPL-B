@@ -4,14 +4,15 @@ import 'package:rpl_b/common_widget/button_widget.dart';
 import 'package:rpl_b/common_widget/text_field_widget.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class LoginPage extends StatefulWidget {
+  static const routeName = '/login_page';
+  const LoginPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 

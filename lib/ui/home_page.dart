@@ -12,142 +12,150 @@ class HomePage extends StatelessWidget {
     List<String> listEvent = ["Edurace", "Mukashi", "Cooking"];
     List<String> listPeople = ["Reihan", "Miqdad", "Danish", "Rafif"];
 
-    bool paddingB = false;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 24,
-              ),
-              // Header
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Miqmeq",
-                        style: getBlackTextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                      Text(
-                        "For RPL B Exhibition",
-                        style: getBlackTextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    width: 45,
-                    height: 45,
-                  ),
-                ],
-              ),
-
-              SizedBox(
-                height: 36,
-              ),
-
-              // Events
-              Expanded(
-                flex: 2,
-                child: ListWidget(
-                  title: "Events",
-                  onSeeAllClick: () {},
-                  listView: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      clipBehavior: Clip.none,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: listEvent.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 160,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.circular(15)),
-                              ),
-                              SizedBox(
-                                height: 16,
-                                width: 10,
-                              ),
-                              Text(
-                                listEvent[index],
-                                style: getBlackTextStyle(fontSize: 12),
-                              )
-                            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 24,
+                ),
+                // Header
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Miqmeq",
+                          style: getBlackTextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
                           ),
-                        );
-                      }),
-                ),
-              ),
-
-              // People
-              Expanded(
-                flex: 2,
-                child: ListWidget(
-                  title: "People",
-                  onSeeAllClick: () {},
-                  listView: ListView.builder(
-                    padding: EdgeInsets.zero,
-                      physics: BouncingScrollPhysics(),
-                      clipBehavior: Clip.none,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: listPeople.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 50,
-                                backgroundColor: Colors.grey,
-                              ),
-                              SizedBox(height: 16),
-                              Text(
-                                listPeople[index],
-                                style: getBlackTextStyle(fontSize: 12),
-                              )
-                            ],
+                        ),
+                        Text(
+                          "For RPL B Exhibition",
+                          style: getBlackTextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
                           ),
-                        );
-                      }),
+                        )
+                      ],
+                    ),
+                    Container(
+                      width: 45,
+                      height: 45,
+                    ),
+                  ],
                 ),
-              ),
 
-              // For You
-              Expanded(
-                child: ListWidget(
-                  title: "For you",
-                  onSeeAllClick: () {},
-                  listView: MasonryGridView.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 100,
-                      );
-                    },
+                SizedBox(
+                  height: 36,
+                ),
+
+                // Events
+                Expanded(
+                  flex: 2,
+                  child: ListWidget(
+                    title: "Events",
+                    onSeeAllClick: () {},
+                    listView: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listEvent.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 160,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(15)),
+                                ),
+                                SizedBox(
+                                  height: 16,
+                                  width: 10,
+                                ),
+                                Text(
+                                  listEvent[index],
+                                  style: getBlackTextStyle(fontSize: 12),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
                   ),
                 ),
-              ),
-            ],
+
+                // People
+                Expanded(
+                  flex: 2,
+                  child: ListWidget(
+                    title: "People",
+                    onSeeAllClick: () {},
+                    listView: ListView.builder(
+                      padding: EdgeInsets.zero,
+                        physics: BouncingScrollPhysics(),
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listPeople.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+                            child: Column(
+                              children: [
+                                CircleAvatar(
+                                  radius: 50,
+                                  backgroundColor: Colors.grey,
+                                ),
+                                SizedBox(height: 16),
+                                Text(
+                                  listPeople[index],
+                                  style: getBlackTextStyle(fontSize: 12),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+
+                // For You
+                Expanded(
+                  flex: 3,
+                  child: ListWidget(
+                    title: "For you",
+                    onSeeAllClick: () {},
+                    listView: MasonryGridView.count(
+                      itemCount: 5,
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 100,
+                          height: (index % 5 + 1) * 100,
+                            decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.circular(15))
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

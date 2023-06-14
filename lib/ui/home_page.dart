@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -58,7 +59,7 @@ class HomePage extends StatelessWidget {
         ListWidget(
           title: "For you",
           onSeeAllClick: (){},
-          listView: ListView(),
+          listView: StaggeredGrid.count(crossAxisCount: 3),
         ),
       ],
     ));
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
 class ListWidget<T> extends StatelessWidget {
   final String title;
   final void Function()? onSeeAllClick;
-  final BoxScrollView listView;
+  final Widget listView;
   
 
   const ListWidget({

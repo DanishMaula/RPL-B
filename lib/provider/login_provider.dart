@@ -16,7 +16,7 @@ class LoginProvider extends ChangeNotifier {
   String get message => _message;
 
   // * do login with email and password
-  Future<void> loginWithEmailPassword(String email, String password) async {
+  Future loginWithEmailPassword(String email, String password) async {
     try {
       _state = ResultState.loading;
       notifyListeners();

@@ -14,9 +14,10 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 28),
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,20 +58,21 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Events
-                Expanded(
-                  flex: 2,
-                  child: ListWidget(
-                    title: "Events",
-                    onSeeAllClick: () {},
-                    listView: ListView.builder(
+                ListWidget(
+                  title: "Events",
+                  onSeeAllClick: () {},
+                  listView: SizedBox(
+                    height: 210,
+                    child: ListView.builder(
                         physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
-                        shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: listEvent.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+                            padding: index != listPeople.length - 1
+                                ? EdgeInsets.only(right: 16)
+                                : EdgeInsets.zero,
                             child: Column(
                               children: [
                                 Container(
@@ -96,21 +98,23 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // People
-                Expanded(
-                  flex: 2,
-                  child: ListWidget(
-                    title: "People",
-                    onSeeAllClick: () {},
-                    listView: ListView.builder(
-                      padding: EdgeInsets.zero,
+                ListWidget(
+                  title: "People",
+                  onSeeAllClick: () {},
+                  listView: SizedBox(
+                    height: 150,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
                         physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
-                        shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: listPeople.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: index != listPeople.length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+                            padding: index != listPeople.length - 1
+                                ? EdgeInsets.only(right: 16)
+                                : EdgeInsets.zero,
                             child: Column(
                               children: [
                                 CircleAvatar(
@@ -130,28 +134,24 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // For You
-                Expanded(
-                  flex: 3,
-                  child: ListWidget(
-                    title: "For you",
-                    onSeeAllClick: () {},
-                    listView: MasonryGridView.count(
-                      itemCount: 5,
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Container(
+                ListWidget(
+                  title: "For you",
+                  onSeeAllClick: () {},
+                  listView: MasonryGridView.count(
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
                           width: 100,
                           height: (index % 5 + 1) * 100,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(15))
-                        );
-                      },
-                    ),
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(15)));
+                    },
                   ),
                 ),
               ],
@@ -166,7 +166,7 @@ class HomePage extends StatelessWidget {
 class ListWidget<T> extends StatelessWidget {
   final String title;
   final void Function()? onSeeAllClick;
-  final BoxScrollView listView;
+  final Widget listView;
 
   const ListWidget({
     super.key,
@@ -193,7 +193,7 @@ class ListWidget<T> extends StatelessWidget {
         SizedBox(
           height: 24,
         ),
-        Expanded(child: listView)
+        listView
       ],
     );
   }

@@ -18,9 +18,8 @@ class LoginProvider extends ChangeNotifier {
   // * do login with email and password
   Future loginWithEmailPassword(String email, String password) async {
     try {
-      _state = ResultState.loading;
-      notifyListeners();
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential user = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       _state = ResultState.hasData;
       notifyListeners();
     } on FirebaseAuthException catch (e) {

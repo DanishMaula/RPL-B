@@ -44,13 +44,19 @@ class _LoginPageState extends State<LoginPage> {
           return const Center(child: CircularProgressIndicator());
         }
         return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Login',
+                Text('RPL B',
                     style: getBlackTextStyle(
                         fontWeight: FontWeight.bold, fontSize: 24)),
+                const SizedBox(height: 16),
+                Image.asset(
+                  'assets/images/photo_login.png',
+                  width: double.infinity,
+                  height: 230,
+                ),
                 const SizedBox(height: 16),
                 TextfieldWidget(
                   hintText: 'Email',

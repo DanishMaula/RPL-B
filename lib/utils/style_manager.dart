@@ -13,14 +13,14 @@ TextStyle _getTextStyle(
   );
 }
 
-TextStyle getTitleTextStyle({
+TextStyle getSeeAllTextStyle({
   double fontSize = 12,
   FontWeight fontWeight = FontWeight.w500,
 }) {
   return _getTextStyle(fontSize, fontWeight, Colors.black);
 }
 
-TextStyle getSeeAllTextStyle({
+TextStyle getTitleTextStyle({
   double fontSize = 20,
   FontWeight fontWeight = FontWeight.w500,
 }) {

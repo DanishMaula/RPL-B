@@ -43,6 +43,7 @@ dependencies:
   firebase_analytics: ^10.4.3
   firebase_storage: ^11.2.3
   google_fonts: ^4.0.4
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:

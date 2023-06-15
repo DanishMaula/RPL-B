@@ -27,6 +27,7 @@ class PeopleItemList extends StatelessWidget {
         children: [
           Container(
             height: 100,
+            width: 100,
             child: ClipOval(
               child: FadeInImage.assetNetwork(
                 image: people.profileUrl,

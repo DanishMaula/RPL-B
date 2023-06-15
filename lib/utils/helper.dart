@@ -9,3 +9,9 @@ void showCustomSnackbar(BuildContext context, String message, Color color) {
     duration: const Duration(seconds: 2),
   ).show(context);
 }
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
+  }
+}

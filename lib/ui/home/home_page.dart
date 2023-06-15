@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/data/model/people.dart';
-import 'package:rpl_b/provider/EventProvider.dart';
-import 'package:rpl_b/provider/MemoriesProvider.dart';
+import 'package:rpl_b/provider/event_provider.dart';
+import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/utils/style_manager.dart';
+
 import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/memories_item_list.dart';
 import '../../common_widget/people_item_list.dart';
@@ -151,7 +152,9 @@ class HomePage extends StatelessWidget {
                               AsyncSnapshot<List<Memories>> snapshot) {
                             return MasonryGridView.count(
                               shrinkWrap: true,
-                              itemCount: snapshot.data?.length ?? listMemoriesDummy.length,
+                              itemCount: snapshot.data!.length > 10
+                                  ? 10
+                                  : snapshot.data?.length,
                               crossAxisCount: 2,
                               mainAxisSpacing: 16,
                               crossAxisSpacing: 16,
@@ -166,6 +169,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                     )),
+
                 SizedBox(
                   height: 24,
                 ),

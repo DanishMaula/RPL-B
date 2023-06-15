@@ -16,9 +16,9 @@ class MemoriesProvider extends ChangeNotifier{
     for (var item in result.items.take(10)) {
       Memories memories = Memories(title: item.name.capitalize(), imageUrl: await item.getDownloadURL());
       listMemories.add(memories);
-      print(memories.imageUrl);
-
     }
+
+    listMemories.shuffle();
 
     return listMemories;
   }

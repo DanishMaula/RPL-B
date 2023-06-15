@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/utils/helper.dart';
 
 import '../data/model/event.dart';
@@ -19,6 +20,8 @@ class EventProvider extends ChangeNotifier{
 
       listEvent.add(Event(title: folderName.capitalize(), imageUrl: await parentRef.child(folderName).child("cover.png").getDownloadURL()));
     }
+
+    listEvent.shuffle();
 
     return listEvent;
   }

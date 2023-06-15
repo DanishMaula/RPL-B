@@ -5,7 +5,6 @@ import 'package:rpl_b/utils/helper.dart';
 import '../data/model/people.dart';
 
 class PeopleProvider extends ChangeNotifier {
-
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<People>> getHomePeopleList() async {
@@ -15,13 +14,19 @@ class PeopleProvider extends ChangeNotifier {
 
     ListResult result = await parentRef.listAll();
 
-    for (var item in result.prefixes.take(5)) {
+    for (var item in result.prefixes) {
       String folderName = item.name;
 
-      listPeople.add(People(name: folderName.capitalize(), profileUrl: await parentRef.child(folderName).child("profile.png").getDownloadURL()));
+      listPeople.add(People(
+          name: folderName.capitalize(),
+          profileUrl: await parentRef
+              .child(folderName)
+              .child("profile.png")
+              .getDownloadURL()));
     }
+
+    listPeople.shuffle();
 
     return listPeople;
   }
-  
 }

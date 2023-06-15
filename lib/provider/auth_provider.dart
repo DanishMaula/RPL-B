@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rpl_b/ui/home/home_page.dart';
 import 'package:rpl_b/utils/result_state.dart';
 
-class LoginProvider extends ChangeNotifier {
+class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? get currentUser => _auth.currentUser;

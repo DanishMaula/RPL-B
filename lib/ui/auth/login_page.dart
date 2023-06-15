@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
 import 'package:rpl_b/common_widget/text_field_widget.dart';
-import 'package:rpl_b/provider/login_provider.dart';
-import 'package:rpl_b/ui/home/home_page.dart';
+import 'package:rpl_b/provider/auth_provider.dart';
 import 'package:rpl_b/utils/result_state.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
@@ -40,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Consumer<LoginProvider>(builder: (context, value, _) {
+        child: Consumer<AuthProvider>(builder: (context, value, _) {
           if (value.state == ResultState.loading) {
             return const Center(child: CircularProgressIndicator());
           }

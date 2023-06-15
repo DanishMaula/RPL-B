@@ -18,7 +18,7 @@ class ForYouItemList extends StatelessWidget {
       borderRadius: BorderRadius.circular(15),
       child: SizedBox(
           width: 100,
-          height: [160, 120, 140, 180, 200][index].toDouble(),
+          height: [160, 120, 140, 180, 200, 150, 140][index].toDouble(),
           child: FadeInImage.assetNetwork(
             image: forYou.imageUrl,
             fit: BoxFit.cover,

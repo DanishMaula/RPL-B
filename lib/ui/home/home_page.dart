@@ -1,8 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rpl_b/ui/auth/login_page.dart';
+import 'package:rpl_b/data/model/event.dart';
+import 'package:rpl_b/data/model/for_you.dart';
+import 'package:rpl_b/data/model/people.dart';
 import 'package:rpl_b/utils/style_manager.dart';
+import '../../common_widget/event_item_item_list.dart';
+import '../../common_widget/for_you_item_list.dart';
+import '../../common_widget/people_item_list.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';
@@ -11,31 +15,20 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> listEvent = ["Edurace", "Mukashi", "Cooking"];
-    List<String> listPeople = ["Reihan", "Miqdad", "Danish", "Rafif"];
-
-    void logout() async {
-      await FirebaseAuth.instance.signOut();
-      if (!context.mounted) return;
-      Navigator.pushNamedAndRemoveUntil(
-          context, LoginPage.routeName, (route) => false);
-    }
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
+                SizedBox(
                   height: 24,
                 ),
                 // Header
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,21 +49,14 @@ class HomePage extends StatelessWidget {
                         )
                       ],
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        logout();
-                      },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.grey, shape: BoxShape.circle),
-                        width: 50,
-                        height: 50,
-                      ),
+                    Container(
+                      width: 45,
+                      height: 45,
                     ),
                   ],
                 ),
 
-                const SizedBox(
+                SizedBox(
                   height: 36,
                 ),
 
@@ -84,32 +70,9 @@ class HomePage extends StatelessWidget {
                         physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listEvent.length,
+                        itemCount: listEventDummy.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: index != listPeople.length - 1
-                                ? const EdgeInsets.only(right: 16)
-                                : EdgeInsets.zero,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 160,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(15)),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                  width: 10,
-                                ),
-                                Text(
-                                  listEvent[index],
-                                  style: getBlackTextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                          );
+                          return EventItemList(event: listEventDummy[index], index: index, length: listEventDummy.length);
                         }),
                   ),
                 ),
@@ -123,29 +86,12 @@ class HomePage extends StatelessWidget {
                     child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        physics: const BouncingScrollPhysics(),
+                        physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listPeople.length,
+                        itemCount: listPeopleDummy.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: index != listPeople.length - 1
-                                ? const EdgeInsets.only(right: 16)
-                                : EdgeInsets.zero,
-                            child: Column(
-                              children: [
-                                const CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: Colors.grey,
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  listPeople[index],
-                                  style: getBlackTextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                          );
+                          return PeopleItemList(people: listPeopleDummy[index], index: index, length: listPeopleDummy.length);
                         }),
                   ),
                 ),
@@ -156,18 +102,13 @@ class HomePage extends StatelessWidget {
                   onSeeAllClick: () {},
                   listView: MasonryGridView.count(
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: listForYouDummy.length,
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Container(
-                          width: 100,
-                          height: (index % 5 + 1) * 100,
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(15)));
+                      return ForYouItemList(forYou: listForYouDummy[index], index: index);
                     },
                   ),
                 ),
@@ -179,6 +120,10 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 class ListWidget<T> extends StatelessWidget {
   final String title;

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/data/model/for_you.dart';
 import 'package:rpl_b/data/model/people.dart';
+import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/for_you_item_list.dart';
@@ -21,98 +23,107 @@ class HomePage extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 24,
-                ),
-                // Header
-                Row(
+            child: Consumer<PeopleProvider>(
+              builder: (context, value, _){
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    SizedBox(
+                      height: 24,
+                    ),
+                    // Header
+                    Row(
                       children: [
-                        Text(
-                          "Miqmeq",
-                          style: getBlackTextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Miqmeq",
+                              style: getBlackTextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            Text(
+                              "For RPL B Exhibition",
+                              style: getBlackTextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
                         ),
-                        Text(
-                          "For RPL B Exhibition",
-                          style: getBlackTextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
+                        Container(
+                          width: 45,
+                          height: 45,
+                        ),
                       ],
                     ),
-                    Container(
-                      width: 45,
-                      height: 45,
+
+                    SizedBox(
+                      height: 36,
+                    ),
+
+                    // Events
+                    ListWidget(
+                      title: "Events",
+                      onSeeAllClick: () {},
+                      listView: SizedBox(
+                        height: 210,
+                        child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            clipBehavior: Clip.none,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: listEventDummy.length,
+                            itemBuilder: (context, index) {
+                              return EventItemList(event: listEventDummy[index], index: index, length: listEventDummy.length);
+                            }),
+                      ),
+                    ),
+
+                    // People
+                    ListWidget(
+                      title: "People",
+                      onSeeAllClick: () {},
+                      listView: SizedBox(
+                        height: 150,
+                        child: FutureBuilder(
+                          future: value.getPeopleList(),
+                          builder: (BuildContext context, AsyncSnapshot<List<People>> snapshot) {
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.zero,
+                                physics: BouncingScrollPhysics(),
+                                clipBehavior: Clip.none,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  return PeopleItemList(people: snapshot.data![index], index: index, length: listPeopleDummy.length);
+                                });
+                          },
+                        ),
+                      ),
+                    ),
+
+                    // For You
+                    ListWidget(
+                      title: "For you",
+                      onSeeAllClick: () {},
+                      listView: MasonryGridView.count(
+                        shrinkWrap: true,
+                        itemCount: listForYouDummy.length,
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return ForYouItemList(forYou: listForYouDummy[index], index: index);
+                        },
+                      ),
                     ),
                   ],
-                ),
-
-                SizedBox(
-                  height: 36,
-                ),
-
-                // Events
-                ListWidget(
-                  title: "Events",
-                  onSeeAllClick: () {},
-                  listView: SizedBox(
-                    height: 210,
-                    child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listEventDummy.length,
-                        itemBuilder: (context, index) {
-                          return EventItemList(event: listEventDummy[index], index: index, length: listEventDummy.length);
-                        }),
-                  ),
-                ),
-
-                // People
-                ListWidget(
-                  title: "People",
-                  onSeeAllClick: () {},
-                  listView: SizedBox(
-                    height: 150,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: BouncingScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listPeopleDummy.length,
-                        itemBuilder: (context, index) {
-                          return PeopleItemList(people: listPeopleDummy[index], index: index, length: listPeopleDummy.length);
-                        }),
-                  ),
-                ),
-
-                // For You
-                ListWidget(
-                  title: "For you",
-                  onSeeAllClick: () {},
-                  listView: MasonryGridView.count(
-                    shrinkWrap: true,
-                    itemCount: listForYouDummy.length,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ForYouItemList(forYou: listForYouDummy[index], index: index);
-                    },
-                  ),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),

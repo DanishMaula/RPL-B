@@ -3,12 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/provider/people_provider.dart';
 
 import 'package:rpl_b/provider/upload_photo_provider.dart';
 
 import 'package:rpl_b/provider/auth_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
-import 'package:rpl_b/ui/home_page.dart';
+import 'package:rpl_b/ui/home/home_page.dart';
 import 'package:rpl_b/ui/see_all_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 import 'firebase_options.dart';
@@ -57,6 +58,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (context) => UploadPhotoProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PeopleProvider(),
         ),
       ],
       child: buildMaterialApp(),

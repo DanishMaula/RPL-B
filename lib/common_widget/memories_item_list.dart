@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
 
-import '../data/model/for_you.dart';
+import '../data/model/memories.dart';
 
 class ForYouItemList extends StatelessWidget {
   const ForYouItemList({
     super.key,
     required this.index,
-    required this.forYou,
+    required this.memories,
   });
 
   final int index;
-  final ForYou forYou;
+  final Memories memories;
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: SizedBox(
-          width: 100,
-          height: [160, 120, 140, 180, 200, 150, 140][index].toDouble(),
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(15),
           child: FadeInImage.assetNetwork(
-            image: forYou.imageUrl,
+            image: memories.imageUrl,
             fit: BoxFit.cover,
             imageErrorBuilder: (a, b, c) {
               return Image.asset("assets/images/gray_place_holder.png",
                   fit: BoxFit.cover);
             },
             placeholder: "assets/images/gray_place_holder.png",
-          )),
+          ),
+        ),
+      ],
     );
   }
 }

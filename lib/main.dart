@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rpl_b/provider/login_provider.dart';
+import 'package:rpl_b/provider/auth_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/ui/home/home_page.dart';
 
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LoginProvider(),
+      create: (context) => AuthProvider(),
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: FirebaseAuth.instance.currentUser == null

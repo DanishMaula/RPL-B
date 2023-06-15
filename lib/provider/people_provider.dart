@@ -16,13 +16,20 @@ class PeopleProvider extends ChangeNotifier {
 
     for (var item in result.prefixes) {
       String folderName = item.name;
+      String imageUrl;
 
-      listPeople.add(People(
-          name: folderName.capitalize(),
-          profileUrl: await parentRef
-              .child(folderName)
-              .child("profile.png")
-              .getDownloadURL()));
+      try {
+        imageUrl = await parentRef
+            .child(folderName)
+            .child("profile.png")
+            .getDownloadURL();
+      } catch (e) {
+        continue;
+      }
+
+      People people = People(name: folderName.capitalize(), profileUrl: imageUrl);
+
+      listPeople.add(people);
     }
 
     listPeople.shuffle();

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
 import 'package:rpl_b/provider/upload_photo_provider.dart';
+import 'package:rpl_b/utils/helper.dart';
 
 import '../utils/image_picker_util.dart';
 import '../utils/result_state.dart';
@@ -32,58 +33,67 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<UploadPhotoProvider>(
-        builder: (context,state,_) {
-          if(state.state == ResultState.loading){
-            return const Center(child: CircularProgressIndicator(),);
-          }
-          return SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    buildModalOptionSource(context);
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(20),
-                      image: selectedImage == null
-                          ? null
-                          : DecorationImage(
-                              fit: BoxFit.cover,
-                              image: FileImage(
-                                File(
-                                  selectedImage!.path,
-                                ),
-                              ),
-                            ),
-                    ),
-                    child: selectedImage != null
-                        ? null
-                        : const Center(
-                            child: Icon(Icons.add_a_photo),
-                          ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ButtonWidget(
-                  color: Colors.redAccent,
-                  onPressed: () {
-                    Provider.of<UploadPhotoProvider>(context, listen: false).uploadImage(selectedImage!);
-                  },
-                  child: const Text('Upload'),
-                ),
-              ],
-            ),
+      body: Consumer<UploadPhotoProvider>(builder: (context, state, _) {
+        if (state.state == ResultState.loading) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         }
-      ),
+        return SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
+              GestureDetector(
+                onTap: () {
+                  buildModalOptionSource(context);
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(20),
+                    image: selectedImage == null
+                        ? null
+                        : DecorationImage(
+                            fit: BoxFit.cover,
+                            image: FileImage(
+                              File(
+                                selectedImage!.path,
+                              ),
+                            ),
+                          ),
+                  ),
+                  child: selectedImage != null
+                      ? null
+                      : const Center(
+                          child: Icon(Icons.add_a_photo),
+                        ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ButtonWidget(
+                color: Colors.redAccent,
+                onPressed: () {
+                  if (selectedImage == null) {
+                    showCustomSnackbar(
+                        context, 'No Image Selected', Colors.redAccent);
+                    return;
+                  }
+                  Provider.of<UploadPhotoProvider>(context, listen: false)
+                      .uploadImage(selectedImage!)
+                      .then(
+                        (value) => Navigator.pop(context),
+                      );
+                },
+                child: const Text('Upload'),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 

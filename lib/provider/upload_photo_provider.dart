@@ -23,7 +23,6 @@ class UploadPhotoProvider extends ChangeNotifier {
   Future uploadImage(File imageFile) async {
     try {
       String imageUrl = '';
-      if(imageFile == null) return;
       String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
       Reference storageRef = FirebaseStorage.instance.ref();
       Reference dirImagesRef = storageRef.child('images');

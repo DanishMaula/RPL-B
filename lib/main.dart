@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/provider/login_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
-import 'package:rpl_b/ui/home_page.dart';
+import 'package:rpl_b/ui/home/home_page.dart';
 
 import 'firebase_options.dart';
 

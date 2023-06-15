@@ -68,25 +68,29 @@ class HomePage extends StatelessWidget {
                 // Events
                 ListWidget(
                   title: "Events",
-                  onSeeAllClick: () {},
+                  onSeeAllClick: () {
+                    Navigator.pushNamed(context, SeeAllPage.routeName);
+                  },
                   listView: SizedBox(
                     height: 210,
                     child: Consumer<EventProvider>(
                       builder: (context, value, _) {
                         return FutureBuilder(
                           future: value.getHomeEventList(),
-                          builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
-                          return ListView.builder(
-                              physics: BouncingScrollPhysics(),
-                              clipBehavior: Clip.none,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) {
-                                return EventItemList(event: snapshot.data![index],
-                                    index: index,
-                                    length: snapshot.data!.length);
-                              });
-                        },
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Event>> snapshot) {
+                            return ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                clipBehavior: Clip.none,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) {
+                                  return EventItemList(
+                                      event: snapshot.data![index],
+                                      index: index,
+                                      length: snapshot.data!.length);
+                                });
+                          },
                         );
                       },
                     ),
@@ -126,41 +130,42 @@ class HomePage extends StatelessWidget {
 
                 // Memories
                 ListWidget(
-                  title: "Memories",
-                  onSeeAllClick: () {},
-                  listView: Consumer<MemoriesProvider>(
-                    builder: (context, value, _){
-                      return FutureBuilder(
-                        future: value.getHomeMemoriesList(), builder: (BuildContext context, AsyncSnapshot<List<Memories>> snapshot) {
-                        return MasonryGridView.count(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return ForYouItemList(
-                                memories: snapshot.data![index], index: index);
+                    title: "Memories",
+                    onSeeAllClick: () {},
+                    listView: Consumer<MemoriesProvider>(
+                      builder: (context, value, _) {
+                        return FutureBuilder(
+                          future: value.getHomeMemoriesList(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Memories>> snapshot) {
+                            return MasonryGridView.count(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 16,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return ForYouItemList(
+                                    memories: snapshot.data![index],
+                                    index: index);
+                              },
+                            );
                           },
                         );
                       },
-                      );
-                    },
-                  )
-                ),
+                    )),
                 SizedBox(
                   height: 24,
                 ),
               ],
             ),
           ),
-        ),)
-      ,
+        ),
+      ),
     );
   }
 }
-
 
 class ListWidget<T> extends StatelessWidget {
   final String title;

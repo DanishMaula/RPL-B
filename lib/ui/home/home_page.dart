@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:rpl_b/data/model/event.dart';
+import 'package:rpl_b/data/model/for_you.dart';
+import 'package:rpl_b/data/model/people.dart';
 import 'package:rpl_b/utils/style_manager.dart';
-
-import '../../common_widget/event_item_list.dart';
+import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/for_you_item_list.dart';
 import '../../common_widget/people_item_list.dart';
 
@@ -13,9 +15,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> listEvent = ["Edurace", "Mukashi", "Cooking"];
-    List<String> listPeople = ["Reihan", "Miqdad", "Danish", "Rafif"];
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -71,9 +70,9 @@ class HomePage extends StatelessWidget {
                         physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listEvent.length,
+                        itemCount: listEventDummy.length,
                         itemBuilder: (context, index) {
-                          return EventItemList(listPeople: listPeople, listEvent: listEvent);
+                          return EventItemList(event: listEventDummy[index], index: index, length: listEventDummy.length);
                         }),
                   ),
                 ),
@@ -90,9 +89,9 @@ class HomePage extends StatelessWidget {
                         physics: BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listPeople.length,
+                        itemCount: listPeopleDummy.length,
                         itemBuilder: (context, index) {
-                          return PeopleItemList(listPeople: listPeople, index: index);
+                          return PeopleItemList(people: listPeopleDummy[index], index: index, length: listPeopleDummy.length);
                         }),
                   ),
                 ),
@@ -103,13 +102,13 @@ class HomePage extends StatelessWidget {
                   onSeeAllClick: () {},
                   listView: MasonryGridView.count(
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: listForYouDummy.length,
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return ForYouItemList(index: index);
+                      return ForYouItemList(forYou: listForYouDummy[index], index: index);
                     },
                   ),
                 ),

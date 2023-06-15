@@ -140,32 +140,32 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Memories
-                // ListWidget(
-                //     title: "Memories",
-                //     onSeeAllClick: () {},
-                //     listView: Consumer<MemoriesProvider>(
-                //       builder: (context, value, _) {
-                //         return FutureBuilder(
-                //           future: value.getHomeMemoriesList(),
-                //           builder: (BuildContext context,
-                //               AsyncSnapshot<List<Memories>> snapshot) {
-                //             return MasonryGridView.count(
-                //               shrinkWrap: true,
-                //               itemCount: snapshot.data!.length,
-                //               crossAxisCount: 2,
-                //               mainAxisSpacing: 16,
-                //               crossAxisSpacing: 16,
-                //               physics: NeverScrollableScrollPhysics(),
-                //               itemBuilder: (context, index) {
-                //                 return ForYouItemList(
-                //                     memories: snapshot.data![index],
-                //                     index: index);
-                //               },
-                //             );
-                //           },
-                //         );
-                //       },
-                //     )),
+                ListWidget(
+                    title: "Memories",
+                    onSeeAllClick: () {},
+                    listView: Consumer<MemoriesProvider>(
+                      builder: (context, value, _) {
+                        return FutureBuilder(
+                          future: value.getHomeMemoriesList(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<List<Memories>> snapshot) {
+                            return MasonryGridView.count(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data?.length ?? listMemoriesDummy.length,
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 16,
+                              crossAxisSpacing: 16,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return ForYouItemList(
+                                    memories: (snapshot.data ?? listMemoriesDummy)[index],
+                                    index: index);
+                              },
+                            );
+                          },
+                        );
+                      },
+                    )),
                 SizedBox(
                   height: 24,
                 ),

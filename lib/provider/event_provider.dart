@@ -5,7 +5,7 @@ import 'package:rpl_b/utils/helper.dart';
 
 import '../data/model/event.dart';
 
-class EventProvider extends ChangeNotifier{
+class EventProvider extends ChangeNotifier {
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<Event>> getHomeEventList() async {
@@ -15,10 +15,19 @@ class EventProvider extends ChangeNotifier{
 
     ListResult result = await parentRef.listAll();
 
-    for (var item in result.prefixes.take(5)) {
+    for (var item in result.prefixes) {
       String folderName = item.name;
 
-      listEvent.add(Event(title: folderName.capitalize(), imageUrl: await parentRef.child(folderName).child("cover.png").getDownloadURL()));
+      String imageUrl;
+      try {
+        imageUrl = await parentRef.child(folderName).child("cover.png").getDownloadURL();
+      } catch(e){
+        continue;
+      }
+
+      Event event = Event(title: folderName.capitalize(), imageUrl: imageUrl);
+
+      listEvent.add(event);
     }
 
     listEvent.shuffle();

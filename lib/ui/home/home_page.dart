@@ -104,12 +104,12 @@ class HomePage extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length,
+                                    itemCount: snapshot.data!.length > 5 ? 5 : snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return EventItemList(
                                           event: snapshot.data![index],
                                           index: index,
-                                          length: snapshot.data!.length);
+                                          length: snapshot.data!.length > 5 ? 5 : snapshot.data!.length);
                                     });
                               }
                             });
@@ -141,12 +141,12 @@ class HomePage extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length,
+                                    itemCount: snapshot.data!.length > 5 ? 5 : snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return PeopleItemList(
                                           people: snapshot.data![index],
                                           index: index,
-                                          length: snapshot.data!.length);
+                                          length: snapshot.data!.length > 5 ? 5 : snapshot.data!.length);
                                     });
                               }
                             });

@@ -76,22 +76,27 @@ class HomePage extends StatelessWidget {
                     child: Consumer<EventProvider>(
                       builder: (context, value, _) {
                         return FutureBuilder(
-                          future: value.getHomeEventList(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Event>> snapshot) {
-                            return ListView.builder(
-                                physics: BouncingScrollPhysics(),
-                                clipBehavior: Clip.none,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) {
-                                  return EventItemList(
-                                      event: snapshot.data![index],
-                                      index: index,
-                                      length: snapshot.data!.length);
-                                });
-                          },
-                        );
+                            future: value.getHomeEventList(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List<Event>> snapshot) {
+                              if (snapshot.data == null) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    clipBehavior: Clip.none,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return EventItemList(
+                                          event: snapshot.data![index],
+                                          index: index,
+                                          length: snapshot.data!.length);
+                                    });
+                              }
+                            });
                       },
                     ),
                   ),
@@ -109,19 +114,25 @@ class HomePage extends StatelessWidget {
                             future: value.getHomePeopleList(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<People>> snapshot) {
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.zero,
-                                  physics: BouncingScrollPhysics(),
-                                  clipBehavior: Clip.none,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    return PeopleItemList(
-                                        people: snapshot.data![index],
-                                        index: index,
-                                        length: snapshot.data!.length);
-                                  });
+                              if (snapshot.data == null) {
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else {
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
+                                    physics: BouncingScrollPhysics(),
+                                    clipBehavior: Clip.none,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return PeopleItemList(
+                                          people: snapshot.data![index],
+                                          index: index,
+                                          length: snapshot.data!.length);
+                                    });
+                              }
                             });
                       },
                     ),
@@ -129,32 +140,32 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Memories
-                ListWidget(
-                    title: "Memories",
-                    onSeeAllClick: () {},
-                    listView: Consumer<MemoriesProvider>(
-                      builder: (context, value, _) {
-                        return FutureBuilder(
-                          future: value.getHomeMemoriesList(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Memories>> snapshot) {
-                            return MasonryGridView.count(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.length,
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 16,
-                              crossAxisSpacing: 16,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return ForYouItemList(
-                                    memories: snapshot.data![index],
-                                    index: index);
-                              },
-                            );
-                          },
-                        );
-                      },
-                    )),
+                // ListWidget(
+                //     title: "Memories",
+                //     onSeeAllClick: () {},
+                //     listView: Consumer<MemoriesProvider>(
+                //       builder: (context, value, _) {
+                //         return FutureBuilder(
+                //           future: value.getHomeMemoriesList(),
+                //           builder: (BuildContext context,
+                //               AsyncSnapshot<List<Memories>> snapshot) {
+                //             return MasonryGridView.count(
+                //               shrinkWrap: true,
+                //               itemCount: snapshot.data!.length,
+                //               crossAxisCount: 2,
+                //               mainAxisSpacing: 16,
+                //               crossAxisSpacing: 16,
+                //               physics: NeverScrollableScrollPhysics(),
+                //               itemBuilder: (context, index) {
+                //                 return ForYouItemList(
+                //                     memories: snapshot.data![index],
+                //                     index: index);
+                //               },
+                //             );
+                //           },
+                //         );
+                //       },
+                //     )),
                 SizedBox(
                   height: 24,
                 ),

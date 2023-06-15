@@ -15,7 +15,6 @@ class ForYouItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(15),

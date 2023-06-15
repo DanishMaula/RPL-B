@@ -25,15 +25,17 @@ class PeopleItemList extends StatelessWidget {
           : EdgeInsets.zero,
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.grey,
-            child: FadeInImage.assetNetwork(
-              image: people.profileUrl,
-              imageErrorBuilder: (a, b, c){
-                return Image.asset("assets/images/gray_place_holder.png");
-              },
-              placeholder: "assets/images/gray_place_holder.png",
+          Container(
+            height: 100,
+            child: ClipOval(
+              child: FadeInImage.assetNetwork(
+                image: people.profileUrl,
+                fit: BoxFit.cover,
+                imageErrorBuilder: (a, b, c){
+                  return Image.asset("assets/images/gray_place_holder.png", fit: BoxFit.cover,);
+                },
+                placeholder: "assets/images/gray_place_holder.png",
+              ),
             ),
           ),
           SizedBox(height: 16),

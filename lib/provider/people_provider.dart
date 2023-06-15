@@ -5,6 +5,7 @@ import 'package:rpl_b/utils/helper.dart';
 import '../data/model/people.dart';
 
 class PeopleProvider extends ChangeNotifier {
+
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<People>> getHomePeopleList() async {

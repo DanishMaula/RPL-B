@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/data/model/event.dart';
-import 'package:rpl_b/data/model/for_you.dart';
+import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/data/model/people.dart';
 import 'package:rpl_b/provider/EventProvider.dart';
+import 'package:rpl_b/provider/MemoriesProvider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import '../../common_widget/event_item_item_list.dart';
-import '../../common_widget/for_you_item_list.dart';
+import '../../common_widget/memories_item_list.dart';
 import '../../common_widget/people_item_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -122,22 +123,33 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                // For You
+                // Memories
                 ListWidget(
-                  title: "For you",
+                  title: "Memories",
                   onSeeAllClick: () {},
-                  listView: MasonryGridView.count(
-                    shrinkWrap: true,
-                    itemCount: listForYouDummy.length,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return ForYouItemList(
-                          forYou: listForYouDummy[index], index: index);
+                  listView: Consumer<MemoriesProvider>(
+                    builder: (context, value, _){
+                      return FutureBuilder(
+                        future: value.getHomeMemoriesList(), builder: (BuildContext context, AsyncSnapshot<List<Memories>> snapshot) {
+                        return MasonryGridView.count(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return ForYouItemList(
+                                memories: snapshot.data![index], index: index);
+                          },
+                        );
+                      },
+                      );
                     },
-                  ),
+                  )
+                ),
+                SizedBox(
+                  height: 24,
                 ),
               ],
             ),

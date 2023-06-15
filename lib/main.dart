@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:rpl_b/provider/login_provider.dart';
 import 'package:rpl_b/provider/upload_photo_provider.dart';
 
 import 'package:rpl_b/provider/auth_provider.dart';
@@ -54,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => LoginProvider(),
+          create: (context) => AuthProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => UploadPhotoProvider(),

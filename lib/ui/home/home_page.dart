@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
+import '../../common_widget/event_item_list.dart';
+import '../../common_widget/for_you_item_list.dart';
+import '../../common_widget/people_item_list.dart';
+
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';
 
@@ -69,30 +73,7 @@ class HomePage extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: listEvent.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: index != listPeople.length - 1
-                                ? EdgeInsets.only(right: 16)
-                                : EdgeInsets.zero,
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: 160,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      borderRadius: BorderRadius.circular(15)),
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                  width: 10,
-                                ),
-                                Text(
-                                  listEvent[index],
-                                  style: getBlackTextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                          );
+                          return EventItemList(listPeople: listPeople, listEvent: listEvent);
                         }),
                   ),
                 ),
@@ -111,24 +92,7 @@ class HomePage extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: listPeople.length,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: index != listPeople.length - 1
-                                ? EdgeInsets.only(right: 16)
-                                : EdgeInsets.zero,
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 50,
-                                  backgroundColor: Colors.grey,
-                                ),
-                                SizedBox(height: 16),
-                                Text(
-                                  listPeople[index],
-                                  style: getBlackTextStyle(fontSize: 12),
-                                )
-                              ],
-                            ),
-                          );
+                          return PeopleItemList(listPeople: listPeople, index: index);
                         }),
                   ),
                 ),
@@ -145,12 +109,7 @@ class HomePage extends StatelessWidget {
                     crossAxisSpacing: 16,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Container(
-                          width: 100,
-                          height: (index % 5 + 1) * 100,
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(15)));
+                      return ForYouItemList(index: index);
                     },
                   ),
                 ),
@@ -162,6 +121,10 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 class ListWidget<T> extends StatelessWidget {
   final String title;

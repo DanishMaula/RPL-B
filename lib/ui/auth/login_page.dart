@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
 import 'package:rpl_b/common_widget/text_field_widget.dart';
 import 'package:rpl_b/provider/login_provider.dart';
-import 'package:rpl_b/ui/home_page.dart';
 import 'package:rpl_b/utils/result_state.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
@@ -89,33 +88,6 @@ class _LoginPageState extends State<LoginPage> {
                         value.loginWithEmailPassword(_emailController.text,
                             _passwordController.text, context);
 
-                        // else {
-                        //   await value.loginWithEmailPassword(
-                        //       _emailController.text,
-                        //       _passwordController.text,
-                        //       context);
-
-                        //   if (value.state == ResultState.hasData) {
-                        //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        //     ScaffoldMessenger.of(context).showSnackBar(
-                        //       const SnackBar(
-                        //         content: Text('Login Success'),
-                        //         backgroundColor: Colors.green,
-                        //       ),
-                        //     );
-                        //     Navigator.pushNamedAndRemoveUntil(
-                        //         context, HomePage.routeName, (route) => false);
-                        //   }
-                        //   if (value.state == ResultState.error) {
-                        //     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        //     ScaffoldMessenger.of(context).showSnackBar(
-                        //       SnackBar(
-                        //         content: Text(value.message ?? 'Login Failed'),
-                        //         backgroundColor: Colors.redAccent,
-                        //       ),
-                        //     );
-                        //   }
-                        // }
                       },
                       child: Text(
                         'Login',

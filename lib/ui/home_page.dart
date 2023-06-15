@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,20 +14,28 @@ class HomePage extends StatelessWidget {
     List<String> listEvent = ["Edurace", "Mukashi", "Cooking"];
     List<String> listPeople = ["Reihan", "Miqdad", "Danish", "Rafif"];
 
+    void logout() async {
+      await FirebaseAuth.instance.signOut();
+      if (!context.mounted) return;
+      Navigator.pushNamedAndRemoveUntil(
+          context, LoginPage.routeName, (route) => false);
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 28),
+            padding: const EdgeInsets.symmetric(horizontal: 28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 // Header
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,14 +56,21 @@ class HomePage extends StatelessWidget {
                         )
                       ],
                     ),
-                    Container(
-                      width: 45,
-                      height: 45,
+                    GestureDetector(
+                      onTap: () async {
+                        logout();
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            color: Colors.grey, shape: BoxShape.circle),
+                        width: 50,
+                        height: 50,
+                      ),
                     ),
                   ],
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 36,
                 ),
 
@@ -71,7 +88,7 @@ class HomePage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: index != listPeople.length - 1
-                                ? EdgeInsets.only(right: 16)
+                                ? const EdgeInsets.only(right: 16)
                                 : EdgeInsets.zero,
                             child: Column(
                               children: [
@@ -82,7 +99,7 @@ class HomePage extends StatelessWidget {
                                       color: Colors.grey,
                                       borderRadius: BorderRadius.circular(15)),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 16,
                                   width: 10,
                                 ),
@@ -106,22 +123,22 @@ class HomePage extends StatelessWidget {
                     child: ListView.builder(
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         clipBehavior: Clip.none,
                         scrollDirection: Axis.horizontal,
                         itemCount: listPeople.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: index != listPeople.length - 1
-                                ? EdgeInsets.only(right: 16)
+                                ? const EdgeInsets.only(right: 16)
                                 : EdgeInsets.zero,
                             child: Column(
                               children: [
-                                CircleAvatar(
+                                const CircleAvatar(
                                   radius: 50,
                                   backgroundColor: Colors.grey,
                                 ),
-                                SizedBox(height: 16),
+                                const SizedBox(height: 16),
                                 Text(
                                   listPeople[index],
                                   style: getBlackTextStyle(fontSize: 12),
@@ -143,7 +160,7 @@ class HomePage extends StatelessWidget {
                     crossAxisCount: 2,
                     mainAxisSpacing: 16,
                     crossAxisSpacing: 16,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Container(
                           width: 100,

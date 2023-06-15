@@ -19,7 +19,6 @@ class UploadPhotoProvider extends ChangeNotifier {
 
   String get message => _message;
 
-  // * do login with email and password
   Future uploadImage(File imageFile) async {
     try {
       String imageUrl = '';

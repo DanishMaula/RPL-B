@@ -72,8 +72,7 @@ class HomePage extends StatelessWidget {
                       onPressed: () async {
                         showDialog(
                             context: context,
-                            builder: (context) =>
-                                ConfirmationDialog(
+                            builder: (context) => ConfirmationDialog(
                                   onLogout: () async {
                                     logout();
                                   },
@@ -92,21 +91,61 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Events
-                Consumer<EventProvider>(
-                    builder: (context, value, widget) {
-                      return FutureBuilder(
-                        future: value.getEventList(),
-                        builder: (context, snapshot) {
-                          if(snapshot.data != null) {
-                            return ListWidget(
-                              title: "Events",
-                              onSeeAllClick: () {
-                                Navigator.pushNamed(context, SeeAllEventPage
-                                    .routeName, arguments: snapshot.data);
-                              },
-                              listView: SizedBox(
-                                height: 210,
+                Consumer<EventProvider>(builder: (context, value, widget) {
+                  return FutureBuilder(
+                      future: value.getEventList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.data != null) {
+                          return ListWidget(
+                            title: "Events",
+                            onSeeAllClick: () {
+                              Navigator.pushNamed(
+                                  context, SeeAllEventPage.routeName,
+                                  arguments: snapshot.data);
+                            },
+                            listView: SizedBox(
+                              height: 210,
+                              child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  clipBehavior: Clip.none,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: snapshot.data!.length > 5
+                                      ? 5
+                                      : snapshot.data!.length,
+                                  itemBuilder: (context, index) {
+                                    return EventItemList(
+                                        event: snapshot.data![index],
+                                        index: index,
+                                        length: snapshot.data!.length > 5
+                                            ? 5
+                                            : snapshot.data!.length);
+                                  }),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      });
+                }),
+
+                // People
+                Consumer<PeopleProvider>(builder: (context, value, _) {
+                  return FutureBuilder(
+                      future: value.getPeopleList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.data != null) {
+                          return ListWidget(
+                            title: "People",
+                            onSeeAllClick: () {
+                              Navigator.pushNamed(
+                                  context, SeeAllPeoplePage.routeName,
+                                  arguments: snapshot.data);
+                            },
+                            listView: SizedBox(
+                                height: 150,
                                 child: ListView.builder(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
                                     physics: BouncingScrollPhysics(),
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
@@ -114,66 +153,19 @@ class HomePage extends StatelessWidget {
                                         ? 5
                                         : snapshot.data!.length,
                                     itemBuilder: (context, index) {
-                                      return EventItemList(
-                                          event: snapshot.data![index],
+                                      return PeopleItemList(
+                                          people: snapshot.data![index],
                                           index: index,
                                           length: snapshot.data!.length > 5
                                               ? 5
                                               : snapshot.data!.length);
-                                    }),
-                              ),
-                            );
-                          } else {
-                            return Container();
-                          }
-
+                                    })),
+                          );
+                        } else {
+                          return Container();
                         }
-                      );
-                    }
-                ),
-
-                // People
-                Consumer<PeopleProvider>(
-                    builder: (context, value, _) {
-                      return FutureBuilder(
-                          future: value.getPeopleList(),
-                          builder: (context, snapshot) {
-                            if(snapshot.data != null) {
-                              return ListWidget(
-                                title: "People",
-                                onSeeAllClick: () {
-                                  Navigator.pushNamed(
-                                      context, SeeAllPeoplePage.routeName,
-                                      arguments: snapshot.data);
-                                },
-                                listView: SizedBox(
-                                    height: 150,
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        padding: EdgeInsets.zero,
-                                        physics: BouncingScrollPhysics(),
-                                        clipBehavior: Clip.none,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: snapshot.data!.length > 5
-                                            ? 5
-                                            : snapshot.data!.length,
-                                        itemBuilder: (context, index) {
-                                          return PeopleItemList(
-                                              people: snapshot.data![index],
-                                              index: index,
-                                              length: snapshot.data!.length > 5
-                                                  ? 5
-                                                  : snapshot.data!.length);
-                                        })
-                                ),
-                              );
-                            } else {
-                              return Container();
-                            }
-                          }
-                      );
-                    }
-                ),
+                      });
+                }),
 
                 // Memories
                 Consumer<MemoriesProvider>(builder: (context, value, _) {
@@ -189,6 +181,7 @@ class HomePage extends StatelessWidget {
                                     arguments: snapshot.data);
                               },
                               listView: MasonryGridView.count(
+                                primary: false,
                                 shrinkWrap: true,
                                 itemCount: snapshot.data!.length > 10
                                     ? 10
@@ -196,7 +189,6 @@ class HomePage extends StatelessWidget {
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 16,
                                 crossAxisSpacing: 16,
-                                physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return MemoriesItem(
                                       memories: (snapshot.data ??

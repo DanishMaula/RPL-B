@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/data/model/people.dart';
+import 'package:rpl_b/provider/detail_provider.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/provider/auth_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
-import 'package:rpl_b/ui/event_detail_page.dart';
+import 'package:rpl_b/ui/detail/detail_page.dart';
 import 'package:rpl_b/ui/home/home_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
+import 'package:rpl_b/utils/type.dart';
 import 'data/model/memories.dart';
 import 'firebase_options.dart';
 
@@ -71,6 +73,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => MemoriesProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => DetailProvider(),
+        ),
       ],
       child: buildMaterialApp(),
     );
@@ -109,11 +114,11 @@ class _MyAppState extends State<MyApp> {
                   as List<Memories>,
             ),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(
-              type: ModalRoute.of(context)?.settings.arguments as String,
+              type: ModalRoute.of(context)?.settings.arguments as PhotoType,
               event: ModalRoute.of(context)?.settings.arguments as String,
             ),
-        EventDetailPage.routeName: (context) => EventDetailPage(
-              event: ModalRoute.of(context)?.settings.arguments as String,
+        DetailPage.routeName: (context) => DetailPage(
+              map: ModalRoute.of(context)?.settings.arguments as Map<PhotoType, String>,
             ),
       },
     );

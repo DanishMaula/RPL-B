@@ -3,8 +3,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
-
-import '../../common_widget/event_item_list.dart';
+import 'package:rpl_b/utils/type.dart';
+import '../../common_widget/event_item_listt.dart';
 import '../../common_widget/text_field_widget.dart';
 import '../../data/model/event.dart';
 
@@ -42,7 +42,7 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
             context,
             MaterialPageRoute(
               builder: (context) => const UploadPhotoPage(
-                type: 'event',
+                type: PhotoType.eventAlbum,
                 event: 'event kontol',
               ),
             ),

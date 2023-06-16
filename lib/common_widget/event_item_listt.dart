@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rpl_b/data/model/event.dart';
-import 'package:rpl_b/ui/event_detail_page.dart';
+import 'package:rpl_b/utils/type.dart';
 
+import '../ui/detail/detail_page.dart';
 import '../utils/style_manager.dart';
 
 class EventItemList extends StatelessWidget {
@@ -22,12 +23,15 @@ class EventItemList extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            EventDetailPage.routeName,
-            arguments: event.title.toLowerCase(),
+            DetailPage.routeName,
+            arguments: { PhotoType.event : event.title.toLowerCase() },
+
           );
         },
         child: Padding(
-          padding: index != length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+          padding: index != length - 1
+              ? EdgeInsets.only(right: 16)
+              : EdgeInsets.zero,
           child: Column(
             children: [
               ClipRRect(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,6 @@ import 'package:rpl_b/utils/style_manager.dart';
 import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/memories_item_list.dart';
 import '../../common_widget/people_item_list.dart';
-import '../see_all_page.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';

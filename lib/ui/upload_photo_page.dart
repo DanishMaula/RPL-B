@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
+import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/utils/helper.dart';
 
 import '../common_widget/text_field_widget.dart';
-import '../provider/EventProvider.dart';
-import '../provider/MemoriesProvider.dart';
+import '../provider/memories_provider.dart';
 import '../utils/image_picker_util.dart';
 
 class UploadPhotoPage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../common_widget/event_item_item_list.dart';
+import '../common_widget/event_item_list.dart';
 import '../data/model/event.dart';
 
 class EventDetailPage extends StatefulWidget {

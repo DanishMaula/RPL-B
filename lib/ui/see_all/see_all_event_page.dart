@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../../common_widget/event_item_item_list.dart';
+import '../../common_widget/event_item_list.dart';
 import '../../common_widget/text_field_widget.dart';
 import '../../data/model/event.dart';
 

@@ -14,15 +14,15 @@ import '../utils/image_picker_util.dart';
 class UploadPhotoPage extends StatefulWidget {
   final String type;
 
-  // final String people;
-  final String event;
+  final String? people;
+  final String? event;
   static const routeName = '/upload_photo_page';
 
   const UploadPhotoPage({
     Key? key,
     required this.type,
-    // required this.people,
-    required this.event,
+    this.people,
+    this.event,
   }) : super(key: key);
 
   @override
@@ -51,11 +51,11 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
           .then(
             (value) => Navigator.pop(context),
           );
-    } else if (widget.type == 'event_image') {
+    } else if (widget.type == 'event_image' && widget.event != null) {
       print('event_image');
       Provider.of<EventProvider>(context, listen: false)
           .uploadEventImage(
-              selectedImage!, widget.event, photoNameController.text)
+              selectedImage!, widget.event!, photoNameController.text)
           .then(
             (value) => Navigator.pop(context),
           );

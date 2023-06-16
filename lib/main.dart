@@ -6,14 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:rpl_b/provider/EventProvider.dart';
 import 'package:rpl_b/provider/MemoriesProvider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
-
-import 'package:rpl_b/provider/upload_photo_provider.dart';
-
 import 'package:rpl_b/provider/auth_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
+import 'package:rpl_b/ui/event_detail_page.dart';
 import 'package:rpl_b/ui/home/home_page.dart';
-import 'package:rpl_b/ui/see_all_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
+import 'package:rpl_b/utils/style_manager.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -59,9 +60,6 @@ class _MyAppState extends State<MyApp> {
           create: (context) => AuthProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => UploadPhotoProvider(),
-        ),
-        ChangeNotifierProvider(
           create: (context) => PeopleProvider(),
         ),
         ChangeNotifierProvider(
@@ -77,15 +75,36 @@ class _MyAppState extends State<MyApp> {
 
   MaterialApp buildMaterialApp() {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: FirebaseAuth.instance.currentUser == null
-            ? LoginPage.routeName
-            : HomePage.routeName,
-        routes: {
-          LoginPage.routeName: (context) => const LoginPage(),
-          HomePage.routeName: (context) => const HomePage(),
-          SeeAllPage.routeName: (context) => const SeeAllPage(),
-          UploadPhotoPage.routeName: (context) => const UploadPhotoPage(),
-        });
+      debugShowCheckedModeBanner: false,
+      initialRoute: FirebaseAuth.instance.currentUser == null
+          ? LoginPage.routeName
+          : HomePage.routeName,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+          titleTextStyle: getBlackTextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
+      routes: {
+        LoginPage.routeName: (context) => const LoginPage(),
+        HomePage.routeName: (context) => const HomePage(),
+        SeeAllEventPage.routeName: (context) => const SeeAllEventPage(),
+        SeeAllPeoplePage.routeName: (context) => const SeeAllPeoplePage(),
+        SeeAllMemoriesPage.routeName: (context) => const SeeAllMemoriesPage(),
+        UploadPhotoPage.routeName: (context) => UploadPhotoPage(
+              type: ModalRoute.of(context)?.settings.arguments as String,
+              event: ModalRoute.of(context)?.settings.arguments as String,
+            ),
+        EventDetailPage.routeName: (context) => EventDetailPage(
+              event: ModalRoute.of(context)?.settings.arguments as String,
+            ),
+      },
+    );
   }
 }

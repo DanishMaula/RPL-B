@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../../common_widget/memories_item_list.dart';
+import '../../common_widget/image_item_list.dart';
 
 class SeeAllMemoriesPage extends StatelessWidget {
   static const routeName = '/see_all_page';
@@ -47,9 +47,10 @@ class SeeAllMemoriesPage extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   itemCount: listMemories.length,
                   itemBuilder: (context, index) {
-                    return MemoriesItem(
-                      memories: listMemories[index],
+                    return ImageItem(
+                      imageUrl: listMemories[index].imageUrl,
                       index: index,
+                      onClick: (){},
                     );
                   },
                 ),

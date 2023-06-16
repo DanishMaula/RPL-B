@@ -15,7 +15,7 @@ import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 import '../../common_widget/event_item_list.dart';
-import '../../common_widget/memories_item_list.dart';
+import '../../common_widget/image_item_list.dart';
 import '../../common_widget/people_item_list.dart';
 import '../see_all/see_all_memories_page.dart';
 
@@ -190,10 +190,12 @@ class HomePage extends StatelessWidget {
                                 mainAxisSpacing: 16,
                                 crossAxisSpacing: 16,
                                 itemBuilder: (context, index) {
-                                  return MemoriesItem(
-                                      memories: (snapshot.data ??
-                                          listMemoriesDummy)[index],
-                                      index: index);
+                                  return ImageItem(
+                                      imageUrl: (snapshot.data ??
+                                          listMemoriesDummy)[index].imageUrl,
+                                      index: index,
+                                  onClick: (){}
+                                  );
                                 },
                               ));
                         } else {
@@ -214,7 +216,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class ListWidget<T> extends StatelessWidget {
+class ListWidget extends StatelessWidget {
   final String title;
   final void Function()? onSeeAllClick;
   final Widget listView;

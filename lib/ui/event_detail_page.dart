@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/common_widget/image_item_list.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
 import '../common_widget/event_item_list.dart';
@@ -51,6 +52,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       ),
       body: SafeArea(
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
             const SizedBox(height: 16),
@@ -62,7 +64,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     builder: (context, snapshot) {
                       if(snapshot.data != null){
                         return MasonryGridView.count(
-                          physics: const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           clipBehavior: Clip.none,
                           shrinkWrap: true,
                           crossAxisCount: 2,
@@ -71,10 +73,12 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            return EventItemList(
-                              event: snapshot.data![index],
+                            return ImageItem(
+                              imageUrl: snapshot.data![index].imageUrl,
                               index: index,
-                              length: snapshot.data!.length,
+                              onClick: (){
+
+                              },
                             );
                           },
                         );

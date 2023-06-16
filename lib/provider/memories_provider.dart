@@ -34,8 +34,7 @@ class MemoriesProvider extends ChangeNotifier {
         continue;
       }
 
-      Memories memories =
-          Memories(title: item.name.capitalize(), imageUrl: imageUrl);
+      Memories memories = Memories(title: item.name.capitalize(), imageUrl: imageUrl);
 
       listMemories.add(memories);
     }

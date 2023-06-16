@@ -4,6 +4,7 @@ import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
 import '../../common_widget/image_item_list.dart';
+import '../view_photo.dart';
 
 class SeeAllMemoriesPage extends StatelessWidget {
   static const routeName = '/see_all_page';
@@ -50,7 +51,13 @@ class SeeAllMemoriesPage extends StatelessWidget {
                     return ImageItem(
                       imageUrl: listMemories[index].imageUrl,
                       index: index,
-                      onClick: (){},
+                      onClick: () {
+                        print("keklik");
+                        Navigator.pushNamed(
+                            context, ViewPhoto.routeName,
+                            arguments: NetworkImage(
+                                listMemories[index].imageUrl));
+                      },
                     );
                   },
                 ),

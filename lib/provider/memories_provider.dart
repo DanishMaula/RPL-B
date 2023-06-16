@@ -25,12 +25,21 @@ class MemoriesProvider extends ChangeNotifier {
 
     ListResult result = await parentRef.listAll();
 
-    for (var item in result.items.take(10)) {
-      Memories memories = Memories(
-          title: item.name.capitalize(), imageUrl: await item.getDownloadURL());
+    for (var item in result.items) {
+
+      String imageUrl;
+      try{
+        imageUrl = await item.getDownloadURL();
+      } catch(e) {
+        continue;
+      }
+
+      Memories memories = Memories(title: item.name.capitalize(), imageUrl: imageUrl);
+
       listMemories.add(memories);
-      print(memories.imageUrl);
     }
+
+    listMemories.shuffle();
 
     return listMemories;
   }

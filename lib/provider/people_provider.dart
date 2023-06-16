@@ -8,14 +8,6 @@ import '../data/model/people.dart';
 import '../utils/result_state.dart';
 
 class PeopleProvider extends ChangeNotifier {
-  String _message = '';
-
-  ResultState _state = ResultState.initialState;
-
-  ResultState get state => _state;
-
-  String get message => _message;
-
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<People>> getHomePeopleList() async {
@@ -25,16 +17,25 @@ class PeopleProvider extends ChangeNotifier {
 
     ListResult result = await parentRef.listAll();
 
-    for (var item in result.prefixes.take(5)) {
+    for (var item in result.prefixes) {
       String folderName = item.name;
+      String imageUrl;
 
-      listPeople.add(People(
-          name: folderName.capitalize(),
-          profileUrl: await parentRef
-              .child(folderName)
-              .child("profile.png")
-              .getDownloadURL()));
+      try {
+        imageUrl = await parentRef
+            .child(folderName)
+            .child("profile.png")
+            .getDownloadURL();
+      } catch (e) {
+        continue;
+      }
+
+      People people = People(name: folderName.capitalize(), profileUrl: imageUrl);
+
+      listPeople.add(people);
     }
+
+    listPeople.shuffle();
 
     return listPeople;
   }

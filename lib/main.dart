@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
           listEvent: ModalRoute.of(context)?.settings.arguments as Future<List<Event>>,
         ),
         SeeAllPeoplePage.routeName: (context) => SeeAllPeoplePage(
-          listPeople: ModalRoute.of(context)?.settings.arguments as Future<List<People>>,
+          listPeople: ModalRoute.of(context)?.settings.arguments as List<People>,
         ),
         SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
               listMemories: ModalRoute.of(context)?.settings.arguments

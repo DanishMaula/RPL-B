@@ -28,6 +28,7 @@ class MemoriesProvider extends ChangeNotifier {
     for (var item in result.items) {
 
       String imageUrl;
+
       try{
         imageUrl = await item.getDownloadURL();
       } catch(e) {
@@ -53,7 +54,6 @@ class MemoriesProvider extends ChangeNotifier {
 
       await fileRef.putFile(File(imageFile.path));
       imageUrl = await fileRef.getDownloadURL();
-      print(imageUrl);
     } on FirebaseException catch (e) {
       _state = ResultState.error;
       _message = e.message!;

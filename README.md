@@ -9,11 +9,7 @@
 ## Screenshots
   <p float="left">
 
- <img src="[https://user-images.githubusercontent.com/88997085/171341855-4962b059-98a8-4ee7-83f0-b0eacd235f43.png](https://github.com/DanishMaula/RPL-B/assets/88997085/8a86a939-4ee0-4cb0-8cd3-3fccdc6a97fa)" width="200" />
-
-![](/screenshots/2.png)
-
-![](/screenshots/3.png)
+ <img src="https://github.com/DanishMaula/RPL-B/assets/88997085/d1abf8df-051c-44a6-bf78-71df948b247b" width="200" />
   
   </p>
 

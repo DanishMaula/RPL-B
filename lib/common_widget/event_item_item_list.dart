@@ -49,16 +49,16 @@ class EventItemList extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 16,
-              width: 10,
-            ),
-            Text(
-              event.title,
-              style: getBlackTextStyle(fontSize: 12),
-            )
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: 16,
+            width: 10,
+          ),
+          Text(
+            event.title,
+            style: getBlackTextStyle(fontSize: 14),
+          )
+        ],
       ),
     );
   }

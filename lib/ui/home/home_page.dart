@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/common_widget/confirmation_dialog.dart';
 import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/data/model/people.dart';
@@ -67,7 +68,13 @@ class HomePage extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () async {
-                        logout();
+                        showDialog(
+                            context: context,
+                            builder: (context) => ConfirmationDialog(
+                                  onLogout: () async {
+                                    logout();
+                                  },
+                                ));
                       },
                       icon: const Icon(
                         Icons.logout,
@@ -104,12 +111,16 @@ class HomePage extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length > 5 ? 5 : snapshot.data!.length,
+                                    itemCount: snapshot.data!.length > 5
+                                        ? 5
+                                        : snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return EventItemList(
                                           event: snapshot.data![index],
                                           index: index,
-                                          length: snapshot.data!.length > 5 ? 5 : snapshot.data!.length);
+                                          length: snapshot.data!.length > 5
+                                              ? 5
+                                              : snapshot.data!.length);
                                     });
                               }
                             });
@@ -141,12 +152,16 @@ class HomePage extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     clipBehavior: Clip.none,
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: snapshot.data!.length > 5 ? 5 : snapshot.data!.length,
+                                    itemCount: snapshot.data!.length > 5
+                                        ? 5
+                                        : snapshot.data!.length,
                                     itemBuilder: (context, index) {
                                       return PeopleItemList(
                                           people: snapshot.data![index],
                                           index: index,
-                                          length: snapshot.data!.length > 5 ? 5 : snapshot.data!.length);
+                                          length: snapshot.data!.length > 5
+                                              ? 5
+                                              : snapshot.data!.length);
                                     });
                               }
                             });

@@ -1,16 +1,46 @@
-# rpl_b
+<h1 align="center">RPL-B</h1>
 
-A new Flutter project.
+<p align="center">RPL B Official Gallery Application</p>
 
-## Getting Started
+## Links
 
-This project is a starting point for a Flutter application.
+- [Repo](https://github.com/DanishMaula/RPL-B "RPLB-B Repo")
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
+  <p float="left">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ <img src="[https://user-images.githubusercontent.com/88997085/171341855-4962b059-98a8-4ee7-83f0-b0eacd235f43.png](https://github.com/DanishMaula/RPL-B/assets/88997085/8a86a939-4ee0-4cb0-8cd3-3fccdc6a97fa)" width="200" />
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](/screenshots/2.png)
+
+![](/screenshots/3.png)
+  
+  </p>
+
+## Built With
+
+- Flutter
+- Dart
+
+## Future Updates
+
+- [ ] Reliable Storage
+
+## Creators 😁
+
+**Danish Maula**
+
+- [Profile](https://github.com/DanishMaula "Danish Maula")
+
+**Ahmad Miqdad**
+
+- [Profile](https://github.com/miqdad08 "Ahmad Miqdad")
+
+**Reihan Fatilla**
+
+- [Profile](https://github.com/ReihanFatilla "Reihan Fatilla")
+
+## 🤝 Support
+
+Give a ⭐️ if you like this project!
+

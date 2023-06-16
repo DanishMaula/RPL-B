@@ -1,4 +1,4 @@
-\import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/common_widget/image_card_widget.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';

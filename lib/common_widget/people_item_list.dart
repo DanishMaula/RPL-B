@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../data/model/people.dart';
 import '../utils/style_manager.dart';
@@ -27,13 +28,13 @@ class PeopleItemList extends StatelessWidget {
             height: 100,
             width: 100,
             child: ClipOval(
-              child: FadeInImage.assetNetwork(
+              child: FadeInImage.memoryNetwork(
                 image: people.profileUrl,
                 fit: BoxFit.cover,
                 imageErrorBuilder: (a, b, c){
                   return Image.asset("assets/images/gray_place_holder.png", fit: BoxFit.cover,);
                 },
-                placeholder: "assets/images/gray_place_holder.png",
+                placeholder: kTransparentImage,
               ),
             ),
           ),

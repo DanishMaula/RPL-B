@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
             ),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(
               type: ModalRoute.of(context)?.settings.arguments as PhotoType,
-              event: ModalRoute.of(context)?.settings.arguments as String,
+              name: ModalRoute.of(context)?.settings.arguments as String,
             ),
         DetailPage.routeName: (context) => DetailPage(
               map: ModalRoute.of(context)?.settings.arguments

@@ -15,15 +15,13 @@ import '../utils/type.dart';
 class UploadPhotoPage extends StatefulWidget {
   final PhotoType type;
 
-  final String? people;
-  final String? event;
+  final String name;
   static const routeName = '/upload_photo_page';
 
   const UploadPhotoPage({
     Key? key,
     required this.type,
-    this.people,
-    this.event,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -45,16 +43,17 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
   }
 
   void typeValidate() {
-    if (widget.type == PhotoType.people && widget.people != null) {
+    if (widget.type == PhotoType.people) {
+
       Provider.of<PeopleProvider>(context, listen: false)
-          .uploadPeopleImage(selectedImage!, widget.people!, photoNameController.text)
+          .uploadPeopleImage(selectedImage!, widget.name, photoNameController.text)
           .then(
             (value) => Navigator.pop(context),
           );
-    } else if (widget.type == PhotoType.event && widget.event != null) {
+    } else if (widget.type == PhotoType.event) {
       Provider.of<EventProvider>(context, listen: false)
           .uploadEvent(
-              selectedImage!, widget.event!, photoNameController.text)
+              selectedImage!, widget.name, photoNameController.text)
           .then(
             (value)  {
               Navigator.pop(context);

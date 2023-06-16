@@ -43,7 +43,7 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
             MaterialPageRoute(
               builder: (context) => const UploadPhotoPage(
                 type: PhotoType.eventAlbum,
-                event: 'event kontol',
+                name: "",
               ),
             ),
           );

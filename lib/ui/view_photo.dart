@@ -24,7 +24,7 @@ class ViewPhoto extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  ImageDownloader.downloadImage(imageProvider.toString());
+                  // ImageDownloader.downloadImage(imageProvider.toString());
                 },
                 icon: const Icon(
                   Icons.download_rounded,

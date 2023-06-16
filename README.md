@@ -4,17 +4,13 @@
 
 ## Links
 
-- [Repo](https://github.com/Rohit19060/<project-name> "<project-name> Repo")
-
-- [Live](<Homepage url> "Live View")
-
-- [Bugs](https://github.com/Rohit19060/<project-name>/issues "Issues Page")
-
-- [API](<API Link> "API")
+- [Repo](https://github.com/DanishMaula/RPL-B "RPLB-B Repo")
 
 ## Screenshots
 
 ![Home Page](/screenshots/1.png "Home Page")
+![Screenshot_1686879484](https://github.com/DanishMaula/RPL-B/assets/88997085/8a86a939-4ee0-4cb0-8cd3-3fccdc6a97fa)
+
 
 ![](/screenshots/2.png)
 

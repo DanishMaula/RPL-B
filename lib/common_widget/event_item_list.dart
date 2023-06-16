@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/ui/event_detail_page.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../utils/style_manager.dart';
 
@@ -27,7 +28,9 @@ class EventItemList extends StatelessWidget {
           );
         },
         child: Padding(
-          padding: index != length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
+          padding: index != length - 1
+              ? EdgeInsets.only(right: 16)
+              : EdgeInsets.zero,
           child: Column(
             children: [
               ClipRRect(
@@ -35,7 +38,7 @@ class EventItemList extends StatelessWidget {
                 child: SizedBox(
                   height: 160,
                   width: 120,
-                  child: FadeInImage.assetNetwork(
+                  child: FadeInImage.memoryNetwork(
                     image: event.imageUrl,
                     fit: BoxFit.cover,
                     imageErrorBuilder: (a, b, c) {
@@ -44,7 +47,7 @@ class EventItemList extends StatelessWidget {
                         fit: BoxFit.cover,
                       );
                     },
-                    placeholder: "assets/images/gray_place_holder.png",
+                    placeholder: kTransparentImage,
                   ),
                 ),
               ),

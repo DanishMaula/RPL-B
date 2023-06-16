@@ -16,6 +16,7 @@ import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
+import 'package:rpl_b/ui/view_photo.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import 'data/model/memories.dart';
 import 'firebase_options.dart';
@@ -99,14 +100,16 @@ class _MyAppState extends State<MyApp> {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
         SeeAllEventPage.routeName: (context) => SeeAllEventPage(
-          listEvent: ModalRoute.of(context)?.settings.arguments as List<Event>,
-        ),
+              listEvent:
+                  ModalRoute.of(context)?.settings.arguments as List<Event>,
+            ),
         SeeAllPeoplePage.routeName: (context) => SeeAllPeoplePage(
-          listPeople: ModalRoute.of(context)?.settings.arguments as List<People>,
-        ),
+              listPeople:
+                  ModalRoute.of(context)?.settings.arguments as List<People>,
+            ),
         SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
-              listMemories: ModalRoute.of(context)?.settings.arguments
-                  as List<Memories>,
+              listMemories:
+                  ModalRoute.of(context)?.settings.arguments as List<Memories>,
             ),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(
               type: ModalRoute.of(context)?.settings.arguments as String,
@@ -115,6 +118,10 @@ class _MyAppState extends State<MyApp> {
         EventDetailPage.routeName: (context) => EventDetailPage(
               event: ModalRoute.of(context)?.settings.arguments as String,
             ),
+        ViewPhoto.routeName: (context) => ViewPhoto(
+              imageProvider: ModalRoute.of(context)?.settings.arguments
+                  as ImageProvider<Object>?,
+            )
       },
     );
   }

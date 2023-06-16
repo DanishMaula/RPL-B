@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../data/model/memories.dart';
+import '../ui/view_photo.dart';
 
 class MemoriesItem extends StatelessWidget {
   const MemoriesItem({
@@ -19,14 +20,23 @@ class MemoriesItem extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: FadeInImage.memoryNetwork(
-            image: memories.imageUrl,
-            fit: BoxFit.cover,
-            imageErrorBuilder: (a, b, c) {
-              return Image.asset("assets/images/gray_place_holder.png",
-                  fit: BoxFit.cover);
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                ViewPhoto.routeName,
+                arguments: NetworkImage(memories.imageUrl),
+              );
             },
-            placeholder: kTransparentImage,
+            child: FadeInImage.memoryNetwork(
+              image: memories.imageUrl,
+              fit: BoxFit.cover,
+              imageErrorBuilder: (a, b, c) {
+                return Image.asset("assets/images/gray_place_holder.png",
+                    fit: BoxFit.cover);
+              },
+              placeholder: kTransparentImage,
+            ),
           ),
         ),
       ],

@@ -1,26 +1,21 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/common_widget/image_card_widget.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../common_widget/text_field_widget.dart';
-import '../utils/image_picker_util.dart';
+import '../../common_widget/text_field_widget.dart';
 
-class SeeAllPage extends StatefulWidget {
+class SeeAllMemoriesPage extends StatefulWidget {
   static const routeName = '/see_all_page';
 
-  const SeeAllPage({Key? key}) : super(key: key);
+  const SeeAllMemoriesPage({Key? key}) : super(key: key);
 
   @override
-  State<SeeAllPage> createState() => _SeeAllPageState();
+  State<SeeAllMemoriesPage> createState() => _SeeAllMemoriesPageState();
 }
 
-class _SeeAllPageState extends State<SeeAllPage> {
+class _SeeAllMemoriesPageState extends State<SeeAllMemoriesPage> {
   final TextEditingController _searchController = TextEditingController();
-
-  File? selectedImage;
 
   @override
   void dispose() {
@@ -33,7 +28,11 @@ class _SeeAllPageState extends State<SeeAllPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, UploadPhotoPage.routeName);
+          Navigator.pushNamed(
+            context,
+            UploadPhotoPage.routeName,
+            arguments: 'memories',
+          );
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

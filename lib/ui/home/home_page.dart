@@ -10,12 +10,12 @@ import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/memories_item_list.dart';
 import '../../common_widget/people_item_list.dart';
-import '../see_all_page.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                 ListWidget(
                   title: "Events",
                   onSeeAllClick: () {
-                    Navigator.pushNamed(context, SeeAllPage.routeName);
+                    Navigator.pushNamed(context, SeeAllEventPage.routeName);
                   },
                   listView: SizedBox(
                     height: 210,

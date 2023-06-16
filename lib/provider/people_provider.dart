@@ -1,10 +1,21 @@
+import 'dart:io';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rpl_b/utils/helper.dart';
 
 import '../data/model/people.dart';
+import '../utils/result_state.dart';
 
 class PeopleProvider extends ChangeNotifier {
+  String _message = '';
+
+  ResultState _state = ResultState.initialState;
+
+  ResultState get state => _state;
+
+  String get message => _message;
+
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<People>> getHomePeopleList() async {
@@ -27,7 +38,8 @@ class PeopleProvider extends ChangeNotifier {
         continue;
       }
 
-      People people = People(name: folderName.capitalize(), profileUrl: imageUrl);
+      People people =
+          People(name: folderName.capitalize(), profileUrl: imageUrl);
 
       listPeople.add(people);
     }
@@ -35,5 +47,33 @@ class PeopleProvider extends ChangeNotifier {
     listPeople.shuffle();
 
     return listPeople;
+  }
+
+  Future uploadPeopleImage(
+      File imageFile, String people, String fileName) async {
+    try {
+      String imageUrl = '';
+      Reference dirImagesRef = firebaseStorage.child('people').child(people);
+      // print("File exists ${dirImagesRef.child(fileName)}");
+      // if(dirImagesRef.child(fileName)==true){
+      Reference fileRef = dirImagesRef.child(fileName);
+      await fileRef.putFile(File(imageFile.path));
+      imageUrl = await fileRef.getDownloadURL();
+      // }else{
+      //   _state = ResultState.error;
+      //   _message = 'Name is already taken';
+      //   notifyListeners();
+      // }
+
+      print(imageUrl);
+    } on FirebaseException catch (e) {
+      _state = ResultState.error;
+      _message = e.message!;
+      notifyListeners();
+    } catch (e) {
+      _state = ResultState.error;
+      _message = e.toString();
+      notifyListeners();
+    }
   }
 }

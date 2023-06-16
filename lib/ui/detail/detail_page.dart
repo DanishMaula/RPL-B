@@ -3,11 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/image_item_list.dart';
 import 'package:rpl_b/provider/detail_provider.dart';
-import 'package:rpl_b/provider/memories_provider.dart';
-import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
-
-import '../../provider/event_provider.dart';
 import '../../utils/type.dart';
 
 class DetailPage extends StatefulWidget {
@@ -41,7 +37,7 @@ class _DetailPageState extends State<DetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Event ${title}'),
+        title: Text(title),
       ),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
@@ -53,7 +49,7 @@ class _DetailPageState extends State<DetailPage> {
             MaterialPageRoute(
               builder: (context) => UploadPhotoPage(
                 type: type,
-                event: title,
+                name: title,
               ),
             ),
           );

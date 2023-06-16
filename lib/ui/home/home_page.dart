@@ -10,6 +10,7 @@ import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
+import 'package:rpl_b/ui/view_photo.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import '../../common_widget/event_item_listt.dart';
 import '../../common_widget/image_item_list.dart';
@@ -193,7 +194,12 @@ class HomePage extends StatelessWidget {
                                               listMemoriesDummy)[index]
                                           .imageUrl,
                                       index: index,
-                                      onClick: () {});
+                                      onClick: () {
+                                        Navigator.pushNamed(
+                                            context, ViewPhoto.routeName,
+                                            arguments: NetworkImage(snapshot
+                                                .data![index].imageUrl));
+                                      });
                                 },
                               ));
                         } else {

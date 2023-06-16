@@ -121,7 +121,8 @@ class _MyAppState extends State<MyApp> {
               event: ModalRoute.of(context)?.settings.arguments as String,
             ),
         DetailPage.routeName: (context) => DetailPage(
-              map: ModalRoute.of(context)?.settings.arguments as Map<PhotoType, String>,
+              map: ModalRoute.of(context)?.settings.arguments
+                  as Map<PhotoType, String>,
             ),
         ViewPhoto.routeName: (context) => ViewPhoto(
               imageProvider: ModalRoute.of(context)?.settings.arguments

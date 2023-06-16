@@ -8,6 +8,14 @@ import '../data/model/people.dart';
 import '../utils/result_state.dart';
 
 class PeopleProvider extends ChangeNotifier {
+  String _message = '';
+
+  ResultState _state = ResultState.initialState;
+
+  ResultState get state => _state;
+
+  String get message => _message;
+
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
   Future<List<People>> getHomePeopleList() async {
@@ -30,7 +38,8 @@ class PeopleProvider extends ChangeNotifier {
         continue;
       }
 
-      People people = People(name: folderName.capitalize(), profileUrl: imageUrl);
+      People people =
+          People(name: folderName.capitalize(), profileUrl: imageUrl);
 
       listPeople.add(people);
     }
@@ -44,8 +53,7 @@ class PeopleProvider extends ChangeNotifier {
       File imageFile, String people, String fileName) async {
     try {
       String imageUrl = '';
-      Reference storageRef = FirebaseStorage.instance.ref();
-      Reference dirImagesRef = storageRef.child('people').child(people);
+      Reference dirImagesRef = firebaseStorage.child('people').child(people);
       // print("File exists ${dirImagesRef.child(fileName)}");
       // if(dirImagesRef.child(fileName)==true){
       Reference fileRef = dirImagesRef.child(fileName);

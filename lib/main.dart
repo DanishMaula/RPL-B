@@ -99,10 +99,10 @@ class _MyAppState extends State<MyApp> {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
         SeeAllEventPage.routeName: (context) => SeeAllEventPage(
-          listEvent: ModalRoute.of(context)?.settings.arguments as Future<List<Event>>,
+          listEvent: ModalRoute.of(context)?.settings.arguments as List<Event>,
         ),
         SeeAllPeoplePage.routeName: (context) => SeeAllPeoplePage(
-          listPeople: ModalRoute.of(context)?.settings.arguments as Future<List<People>>,
+          listPeople: ModalRoute.of(context)?.settings.arguments as List<People>,
         ),
         SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
               listMemories: ModalRoute.of(context)?.settings.arguments

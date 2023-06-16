@@ -3,16 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/button_widget.dart';
+import 'package:rpl_b/provider/detail_provider.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/utils/helper.dart';
-
 import '../common_widget/text_field_widget.dart';
 import '../provider/memories_provider.dart';
 import '../utils/image_picker_util.dart';
+import '../utils/type.dart';
 
 class UploadPhotoPage extends StatefulWidget {
-  final String type;
+  final PhotoType type;
 
   final String? people;
   final String? event;
@@ -44,30 +45,28 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
   }
 
   void typeValidate() {
-    if (widget.type == 'people') {
-      print('people');
+    if (widget.type == PhotoType.people && widget.people != null) {
       Provider.of<PeopleProvider>(context, listen: false)
-          .uploadPeopleImage(selectedImage!, 'miqdad', photoNameController.text)
+          .uploadPeopleImage(selectedImage!, widget.people!, photoNameController.text)
           .then(
             (value) => Navigator.pop(context),
           );
-    } else if (widget.type == 'event_image' && widget.event != null) {
-      print('event_image');
+    } else if (widget.type == PhotoType.event && widget.event != null) {
       Provider.of<EventProvider>(context, listen: false)
-          .uploadEventImage(
+          .uploadEvent(
               selectedImage!, widget.event!, photoNameController.text)
           .then(
-            (value) => Navigator.pop(context),
+            (value)  {
+              Navigator.pop(context);
+            },
           );
-    } else if (widget.type == 'event') {
-      print('event');
+    } else if (widget.type == PhotoType.eventAlbum) {
       Provider.of<EventProvider>(context, listen: false)
-          .uploadEvent(selectedImage!, photoNameController.text)
+          .uploadEventAlbum(selectedImage!, photoNameController.text)
           .then(
             (value) => Navigator.pop(context),
           );
     } else {
-      print('memories');
       Provider.of<MemoriesProvider>(context, listen: false)
           .uploadMemoriesImage(selectedImage!, photoNameController.text)
           .then(

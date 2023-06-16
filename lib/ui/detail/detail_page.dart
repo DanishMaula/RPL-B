@@ -2,23 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/image_item_list.dart';
+import 'package:rpl_b/provider/detail_provider.dart';
+import 'package:rpl_b/provider/memories_provider.dart';
+import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../common_widget/event_item_list.dart';
-import '../data/model/event.dart';
-import '../provider/event_provider.dart';
+import '../../provider/event_provider.dart';
+import '../../utils/type.dart';
 
-class EventDetailPage extends StatefulWidget {
-  final String event;
+class DetailPage extends StatefulWidget {
+
+  final Map<PhotoType, String> map;
+
   static const String routeName = '/event-detail-page';
 
-  const EventDetailPage({Key? key, required this.event}) : super(key: key);
+  const DetailPage({Key? key, required this.map,})
+      : super(key: key);
 
   @override
-  State<EventDetailPage> createState() => _EventDetailPageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _EventDetailPageState extends State<EventDetailPage> {
+class _DetailPageState extends State<DetailPage> {
+
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -29,9 +35,13 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    PhotoType type = widget.map.keys.first;
+    String title = widget.map.values.first;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Event ${widget.event}'),
+        title: Text('Event ${title}'),
       ),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
@@ -42,8 +52,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
             context,
             MaterialPageRoute(
               builder: (context) => UploadPhotoPage(
-                type: 'event_image',
-                event: widget.event,
+                type: type,
+                event: title,
               ),
             ),
           );
@@ -57,12 +67,11 @@ class _EventDetailPageState extends State<EventDetailPage> {
           children: [
             const SizedBox(height: 16),
             SizedBox(
-              child: Consumer<EventProvider>(
-                builder: (context, value, _) {
-                  return FutureBuilder(
-                    future: value.getDetailEventList(widget.event),
+              child: Consumer<DetailProvider>(builder: (context, value, _) {
+                return FutureBuilder(
+                    future: value.getDetailList(title, type),
                     builder: (context, snapshot) {
-                      if(snapshot.data != null){
+                      if (snapshot.data != null) {
                         return MasonryGridView.count(
                           physics: const NeverScrollableScrollPhysics(),
                           clipBehavior: Clip.none,
@@ -74,21 +83,17 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
                             return ImageItem(
-                              imageUrl: snapshot.data![index].imageUrl,
+                              imageUrl: snapshot.data![index],
                               index: index,
-                              onClick: (){
-
-                              },
+                              onClick: () {},
                             );
                           },
                         );
                       } else {
                         return Container();
                       }
-                    }
-                  );
-                }
-              ),
+                    });
+              }),
             )
           ],
         ),

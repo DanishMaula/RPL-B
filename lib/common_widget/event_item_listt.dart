@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rpl_b/data/model/event.dart';
-import 'package:rpl_b/ui/event_detail_page.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:rpl_b/utils/type.dart';
 
+import '../ui/detail/detail_page.dart';
 import '../utils/style_manager.dart';
 
 class EventItemList extends StatelessWidget {
@@ -23,8 +23,9 @@ class EventItemList extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
             context,
-            EventDetailPage.routeName,
-            arguments: event.title.toLowerCase(),
+            DetailPage.routeName,
+            arguments: { PhotoType.event : event.title.toLowerCase() },
+
           );
         },
         child: Padding(
@@ -38,7 +39,7 @@ class EventItemList extends StatelessWidget {
                 child: SizedBox(
                   height: 160,
                   width: 120,
-                  child: FadeInImage.memoryNetwork(
+                  child: FadeInImage.assetNetwork(
                     image: event.imageUrl,
                     fit: BoxFit.cover,
                     imageErrorBuilder: (a, b, c) {
@@ -47,7 +48,7 @@ class EventItemList extends StatelessWidget {
                         fit: BoxFit.cover,
                       );
                     },
-                    placeholder: kTransparentImage,
+                    placeholder: "assets/images/gray_place_holder.png",
                   ),
                 ),
               ),

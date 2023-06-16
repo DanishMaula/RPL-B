@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:rpl_b/utils/helper.dart';
+import 'package:rpl_b/utils/type.dart';
 
 import '../data/model/event.dart';
 import '../utils/result_state.dart';
@@ -46,34 +47,7 @@ class EventProvider extends ChangeNotifier{
     return listEvent;
   }
 
-  Future<List<Event>> getDetailEventList(String event) async {
-    List<Event> listEvent = [];
-
-    Reference parentRef = firebaseStorage.child("event").child(event);
-
-    ListResult result = await parentRef.listAll();
-
-    for (var item in result.items) {
-      String folderName = item.name;
-
-      String imageUrl;
-      try {
-        imageUrl = await item.getDownloadURL();
-      } catch(e){
-        continue;
-      }
-
-      Event event = Event(title: folderName.capitalize(), imageUrl: imageUrl);
-
-      listEvent.add(event);
-    }
-
-    listEvent.shuffle();
-
-    return listEvent;
-  }
-
-  Future uploadEventImage(File imageFile, String event, String fileName) async {
+  Future uploadEvent(File imageFile, String event, String fileName) async {
     try {
       String imageUrl = '';
       Reference dirImagesRef = firebaseStorage.child('event').child(event.toLowerCase());
@@ -91,7 +65,7 @@ class EventProvider extends ChangeNotifier{
     }
   }
 
-  Future uploadEvent(File imageFile, String event) async {
+  Future uploadEventAlbum(File imageFile, String event) async {
     try {
       String imageUrl = '';
       Reference dirImagesRef = firebaseStorage.child('event').child(event.toLowerCase());

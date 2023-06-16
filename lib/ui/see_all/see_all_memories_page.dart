@@ -1,70 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rpl_b/common_widget/image_card_widget.dart';
+import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
-import '../../common_widget/text_field_widget.dart';
+import '../../common_widget/memories_item_list.dart';
 
-class SeeAllMemoriesPage extends StatefulWidget {
+class SeeAllMemoriesPage extends StatelessWidget {
   static const routeName = '/see_all_page';
+  final List<Memories> listMemories;
 
-  const SeeAllMemoriesPage({Key? key}) : super(key: key);
-
-  @override
-  State<SeeAllMemoriesPage> createState() => _SeeAllMemoriesPageState();
-}
-
-class _SeeAllMemoriesPageState extends State<SeeAllMemoriesPage> {
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  const SeeAllMemoriesPage({Key? key, required this.listMemories})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(
-            context,
-            UploadPhotoPage.routeName,
-            arguments: 'memories',
-          );
-        },
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+        appBar: AppBar(
+          title: const Text('Our Memories'),
         ),
-        child: const Icon(Icons.add),
-      ),
-      body: SafeArea(
-        child: ListView(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              UploadPhotoPage.routeName,
+              arguments: 'memories',
+            );
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: const Icon(Icons.add),
+        ),
+        body: ListView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(16),
           children: [
-            TextfieldWidget(
-              hintText: 'Cari Gambar',
-              controller: _searchController,
-              prefixIcon: const Icon(Icons.search),
-            ),
-            SizedBox(
-              child: MasonryGridView.count(
-                itemCount: 5,
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ImageCardWidget(index: index);
-                },
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SizedBox(
+                child: MasonryGridView.count(
+                  physics: const BouncingScrollPhysics(),
+                  clipBehavior: Clip.none,
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  scrollDirection: Axis.vertical,
+                  itemCount: listMemories.length,
+                  itemBuilder: (context, index) {
+                    return MemoriesItem(
+                      memories: listMemories[index],
+                      index: index,
+                    );
+                  },
+                ),
               ),
             )
           ],
-        ),
-      ),
-    );
+        ));
   }
 }

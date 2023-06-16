@@ -11,6 +11,7 @@ import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
 import '../../common_widget/event_item_item_list.dart';
@@ -171,21 +172,19 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Memories
-                ListWidget(
-                    title: "Memories",
-                    onSeeAllClick: () {},
-                    listView: Consumer<MemoriesProvider>(
-                      builder: (context, value, _) {
-                        return FutureBuilder(
-                          future: value.getHomeMemoriesList(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Memories>> snapshot) {
-                            if (snapshot.data == null) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return MasonryGridView.count(
+                Consumer<MemoriesProvider>(builder: (context, value, _) {
+                  return FutureBuilder(
+                      future: value.getHomeMemoriesList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.data != null) {
+                          return ListWidget(
+                              title: "Memories",
+                              onSeeAllClick: () {
+                                Navigator.pushNamed(
+                                    context, SeeAllMemoriesPage.routeName,
+                                    arguments: snapshot.data);
+                              },
+                              listView: MasonryGridView.count(
                                 shrinkWrap: true,
                                 itemCount: snapshot.data!.length > 10
                                     ? 10
@@ -195,17 +194,17 @@ class HomePage extends StatelessWidget {
                                 crossAxisSpacing: 16,
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return ForYouItemList(
+                                  return MemoriesItem(
                                       memories: (snapshot.data ??
                                           listMemoriesDummy)[index],
                                       index: index);
                                 },
-                              );
-                            }
-                          },
-                        );
-                      },
-                    )),
+                              ));
+                        } else {
+                          return Container();
+                        }
+                      });
+                }),
 
                 const SizedBox(
                   height: 24,

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
@@ -88,7 +89,8 @@ class _MyAppState extends State<MyApp> {
           iconTheme: const IconThemeData(
             color: Colors.black,
           ),
-          titleTextStyle: getBlackTextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          titleTextStyle:
+              getBlackTextStyle(fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
       routes: {
@@ -96,7 +98,10 @@ class _MyAppState extends State<MyApp> {
         HomePage.routeName: (context) => const HomePage(),
         SeeAllEventPage.routeName: (context) => const SeeAllEventPage(),
         SeeAllPeoplePage.routeName: (context) => const SeeAllPeoplePage(),
-        SeeAllMemoriesPage.routeName: (context) => const SeeAllMemoriesPage(),
+        SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
+              listMemories: ModalRoute.of(context)?.settings.arguments
+                  as List<Memories>,
+            ),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(
               type: ModalRoute.of(context)?.settings.arguments as String,
               event: ModalRoute.of(context)?.settings.arguments as String,

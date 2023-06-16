@@ -3,8 +3,8 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../data/model/memories.dart';
 
-class ForYouItemList extends StatelessWidget {
-  const ForYouItemList({
+class MemoriesItem extends StatelessWidget {
+  const MemoriesItem({
     super.key,
     required this.index,
     required this.memories,

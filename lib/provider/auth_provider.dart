@@ -24,12 +24,15 @@ class AuthProvider extends ChangeNotifier {
           email: email, password: password);
       _state = ResultState.hasData;
       notifyListeners();
+      if (!context.mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Login success: ${user.user!.email}'),
           backgroundColor: Colors.green,
         ),
       );
+      if (!context.mounted) return;
       Navigator.pushNamedAndRemoveUntil(
           context, HomePage.routeName, (route) => false);
     } on FirebaseAuthException catch (e) {

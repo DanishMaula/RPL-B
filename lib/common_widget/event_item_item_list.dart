@@ -43,7 +43,7 @@ class EventItemList extends StatelessWidget {
           ),
           Text(
             event.title,
-            style: getBlackTextStyle(fontSize: 12),
+            style: getBlackTextStyle(fontSize: 14),
           )
         ],
       ),

@@ -10,7 +10,6 @@ class PeopleItemList extends StatelessWidget {
     required this.length,
     required this.people,
     required this.index,
-
   });
 
   final People people;
@@ -20,9 +19,8 @@ class PeopleItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: index != length - 1
-          ? EdgeInsets.only(right: 16)
-          : EdgeInsets.zero,
+      padding:
+          index != length - 1 ? EdgeInsets.only(right: 16) : EdgeInsets.zero,
       child: Column(
         children: [
           Container(
@@ -42,7 +40,7 @@ class PeopleItemList extends StatelessWidget {
           SizedBox(height: 16),
           Text(
             people.name,
-            style: getBlackTextStyle(fontSize: 12),
+            style: getBlackTextStyle(fontSize: 14),
           )
         ],
       ),

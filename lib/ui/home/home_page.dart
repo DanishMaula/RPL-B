@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:rpl_b/common_widget/confirmation_dialog.dart';
-import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/data/model/memories.dart';
-import 'package:rpl_b/data/model/people.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
@@ -16,6 +14,7 @@ import 'package:rpl_b/utils/style_manager.dart';
 
 import '../../common_widget/event_item_list.dart';
 import '../../common_widget/image_item_list.dart';
+import '../../common_widget/list_widget.dart';
 import '../../common_widget/people_item_list.dart';
 import '../see_all/see_all_memories_page.dart';
 
@@ -192,10 +191,10 @@ class HomePage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return ImageItem(
                                       imageUrl: (snapshot.data ??
-                                          listMemoriesDummy)[index].imageUrl,
+                                              listMemoriesDummy)[index]
+                                          .imageUrl,
                                       index: index,
-                                  onClick: (){}
-                                  );
+                                      onClick: () {});
                                 },
                               ));
                         } else {
@@ -212,48 +211,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ListWidget extends StatelessWidget {
-  final String title;
-  final void Function()? onSeeAllClick;
-  final Widget listView;
-
-  const ListWidget({
-    super.key,
-    required this.title,
-    this.onSeeAllClick,
-    required this.listView,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: getTitleTextStyle(fontWeight: FontWeight.w600),
-            ),
-            GestureDetector(
-              onTap: onSeeAllClick,
-              child: Text(
-                "See all",
-                style: getSeeAllTextStyle(),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        listView
-      ],
     );
   }
 }

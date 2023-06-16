@@ -10,9 +10,11 @@ import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
+import 'package:rpl_b/ui/view_photo.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import '../../common_widget/event_item_listt.dart';
 import '../../common_widget/image_item_list.dart';
+import '../../common_widget/list_widget.dart';
 import '../../common_widget/people_item_list.dart';
 import '../see_all/see_all_memories_page.dart';
 
@@ -189,10 +191,15 @@ class HomePage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return ImageItem(
                                       imageUrl: (snapshot.data ??
-                                          listMemoriesDummy)[index].imageUrl,
+                                              listMemoriesDummy)[index]
+                                          .imageUrl,
                                       index: index,
-                                  onClick: (){}
-                                  );
+                                      onClick: () {
+                                        Navigator.pushNamed(
+                                            context, ViewPhoto.routeName,
+                                            arguments: NetworkImage(snapshot
+                                                .data![index].imageUrl));
+                                      });
                                 },
                               ));
                         } else {
@@ -209,48 +216,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ListWidget extends StatelessWidget {
-  final String title;
-  final void Function()? onSeeAllClick;
-  final Widget listView;
-
-  const ListWidget({
-    super.key,
-    required this.title,
-    this.onSeeAllClick,
-    required this.listView,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: getTitleTextStyle(fontWeight: FontWeight.w600),
-            ),
-            GestureDetector(
-              onTap: onSeeAllClick,
-              child: Text(
-                "See all",
-                style: getSeeAllTextStyle(),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        listView
-      ],
     );
   }
 }

@@ -17,6 +17,7 @@ import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
+import 'package:rpl_b/ui/view_photo.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 import 'package:rpl_b/utils/type.dart';
 import 'data/model/memories.dart';
@@ -104,22 +105,29 @@ class _MyAppState extends State<MyApp> {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
         SeeAllEventPage.routeName: (context) => SeeAllEventPage(
-          listEvent: ModalRoute.of(context)?.settings.arguments as List<Event>,
-        ),
+              listEvent:
+                  ModalRoute.of(context)?.settings.arguments as List<Event>,
+            ),
         SeeAllPeoplePage.routeName: (context) => SeeAllPeoplePage(
-          listPeople: ModalRoute.of(context)?.settings.arguments as List<People>,
-        ),
+              listPeople:
+                  ModalRoute.of(context)?.settings.arguments as List<People>,
+            ),
         SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
-              listMemories: ModalRoute.of(context)?.settings.arguments
-                  as List<Memories>,
+              listMemories:
+                  ModalRoute.of(context)?.settings.arguments as List<Memories>,
             ),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(
               type: ModalRoute.of(context)?.settings.arguments as PhotoType,
               name: ModalRoute.of(context)?.settings.arguments as String,
             ),
         DetailPage.routeName: (context) => DetailPage(
-              map: ModalRoute.of(context)?.settings.arguments as Map<PhotoType, String>,
+              map: ModalRoute.of(context)?.settings.arguments
+                  as Map<PhotoType, String>,
             ),
+        ViewPhoto.routeName: (context) => ViewPhoto(
+              imageProvider: ModalRoute.of(context)?.settings.arguments
+                  as ImageProvider<Object>?,
+            )
       },
     );
   }

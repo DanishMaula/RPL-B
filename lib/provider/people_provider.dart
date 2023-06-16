@@ -18,7 +18,7 @@ class PeopleProvider extends ChangeNotifier {
 
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
-  Future<List<People>> getHomePeopleList() async {
+  Future<List<People>> getPeopleList() async {
     List<People> listPeople = [];
 
     Reference parentRef = firebaseStorage.child("people");
@@ -76,4 +76,5 @@ class PeopleProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
 }

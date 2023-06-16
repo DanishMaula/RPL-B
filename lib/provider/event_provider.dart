@@ -19,7 +19,7 @@ class EventProvider extends ChangeNotifier{
 
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
-  Future<List<Event>> getHomeEventList() async {
+  Future<List<Event>> getEventList() async {
     List<Event> listEvent = [];
 
     Reference parentRef = firebaseStorage.child("event");
@@ -32,6 +32,33 @@ class EventProvider extends ChangeNotifier{
       String imageUrl;
       try {
         imageUrl = await parentRef.child(folderName).child("cover.png").getDownloadURL();
+      } catch(e){
+        continue;
+      }
+
+      Event event = Event(title: folderName.capitalize(), imageUrl: imageUrl);
+
+      listEvent.add(event);
+    }
+
+    listEvent.shuffle();
+
+    return listEvent;
+  }
+
+  Future<List<Event>> getDetailEventList(String event) async {
+    List<Event> listEvent = [];
+
+    Reference parentRef = firebaseStorage.child("event").child(event);
+
+    ListResult result = await parentRef.listAll();
+
+    for (var item in result.items) {
+      String folderName = item.name;
+
+      String imageUrl;
+      try {
+        imageUrl = await item.getDownloadURL();
       } catch(e){
         continue;
       }

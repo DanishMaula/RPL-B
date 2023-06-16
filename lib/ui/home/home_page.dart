@@ -11,12 +11,13 @@ import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
 import 'package:rpl_b/ui/auth/login_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_event_page.dart';
-import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
+import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
 
-import '../../common_widget/event_item_item_list.dart';
+import '../../common_widget/event_item_list.dart';
 import '../../common_widget/memories_item_list.dart';
 import '../../common_widget/people_item_list.dart';
+import '../see_all/see_all_memories_page.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = '/home_page';
@@ -90,17 +91,17 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Events
-                ListWidget(
-                  title: "Events",
-                  onSeeAllClick: () {
-                    Navigator.pushNamed(context, SeeAllEventPage.routeName);
-                  },
-                  listView: SizedBox(
-                    height: 210,
-                    child: Consumer<EventProvider>(
-                      builder: (context, value, _) {
-                        return FutureBuilder(
-                            future: value.getHomeEventList(),
+                Consumer<EventProvider>(
+                  builder: (context, value, widget) {
+                    return ListWidget(
+                      title: "Events",
+                      onSeeAllClick: () {
+                        Navigator.pushNamed(context, SeeAllEventPage.routeName, arguments: value.getEventList() );
+                      },
+                      listView: SizedBox(
+                        height: 210,
+                        child: FutureBuilder(
+                            future: value.getEventList(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<Event>> snapshot) {
                               if (snapshot.data == null) {
@@ -124,22 +125,24 @@ class HomePage extends StatelessWidget {
                                               : snapshot.data!.length);
                                     });
                               }
-                            });
-                      },
-                    ),
-                  ),
+                            }),
+                      ),
+                    );
+                  }
                 ),
 
                 // People
-                ListWidget(
-                  title: "People",
-                  onSeeAllClick: () {},
-                  listView: SizedBox(
-                    height: 150,
-                    child: Consumer<PeopleProvider>(
-                      builder: (context, value, _) {
-                        return FutureBuilder(
-                            future: value.getHomePeopleList(),
+                Consumer<PeopleProvider>(
+                  builder: (context, value, _) {
+                    return ListWidget(
+                      title: "People",
+                      onSeeAllClick: () {
+                        Navigator.pushNamed(context, SeeAllPeoplePage.routeName, arguments: value.getPeopleList());
+                      },
+                      listView: SizedBox(
+                        height: 150,
+                        child: FutureBuilder(
+                            future: value.getPeopleList(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<People>> snapshot) {
                               if (snapshot.data == null) {
@@ -165,10 +168,10 @@ class HomePage extends StatelessWidget {
                                               : snapshot.data!.length);
                                     });
                               }
-                            });
-                      },
-                    ),
-                  ),
+                            }),
+                      ),
+                    );
+                  }
                 ),
 
                 // Memories

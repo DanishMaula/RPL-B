@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rpl_b/data/model/memories.dart';
+import 'package:rpl_b/data/model/event.dart';
+import 'package:rpl_b/data/model/people.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
@@ -16,6 +17,7 @@ import 'package:rpl_b/ui/see_all/see_all_memories_page.dart';
 import 'package:rpl_b/ui/see_all/see_all_people_page.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 import 'package:rpl_b/utils/style_manager.dart';
+import 'data/model/memories.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -96,8 +98,12 @@ class _MyAppState extends State<MyApp> {
       routes: {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
-        SeeAllEventPage.routeName: (context) => const SeeAllEventPage(),
-        SeeAllPeoplePage.routeName: (context) => const SeeAllPeoplePage(),
+        SeeAllEventPage.routeName: (context) => SeeAllEventPage(
+          listEvent: ModalRoute.of(context)?.settings.arguments as Future<List<Event>>,
+        ),
+        SeeAllPeoplePage.routeName: (context) => SeeAllPeoplePage(
+          listPeople: ModalRoute.of(context)?.settings.arguments as Future<List<People>>,
+        ),
         SeeAllMemoriesPage.routeName: (context) => SeeAllMemoriesPage(
               listMemories: ModalRoute.of(context)?.settings.arguments
                   as List<Memories>,

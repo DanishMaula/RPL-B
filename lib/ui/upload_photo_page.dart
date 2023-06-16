@@ -120,6 +120,7 @@ class _UploadPhotoPageState extends State<UploadPhotoPage> {
             const SizedBox(
               height: 20,
             ),
+            // if type is memories then remove textfield
             TextfieldWidget(
               hintText: widget.type == 'event' ? 'Event Name' : 'Photo Name ',
               controller: photoNameController,

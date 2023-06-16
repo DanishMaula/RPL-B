@@ -28,13 +28,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final _auth = FirebaseAuth.instance;
 
-  String? validationInput() {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      return 'Please fill the form';
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,20 +67,8 @@ class _LoginPageState extends State<LoginPage> {
                     ButtonWidget(
                       color: Colors.redAccent,
                       onPressed: () async {
-                        final _validationInput = validationInput();
-
-                        if (_validationInput != null) {
-                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(_validationInput),
-                              backgroundColor: Colors.redAccent,
-                            ),
-                          );
-                        }
                         value.loginWithEmailPassword(_emailController.text,
                             _passwordController.text, context);
-
                       },
                       child: Text(
                         'Login',

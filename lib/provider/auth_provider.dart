@@ -39,12 +39,30 @@ class AuthProvider extends ChangeNotifier {
       _state = ResultState.error;
       _message = e.message!;
       notifyListeners();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login failed: ${e.message}'),
-          backgroundColor: Colors.redAccent,
-        ),
-      );
+      if (_message ==
+          'The password is invalid or the user does not have a password.') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Password is invalid'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else if (_message ==
+          'There is no user record corresponding to this identifier. The user may have been deleted.') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Email is invalid'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login failed'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     } catch (e) {
       _state = ResultState.error;
       _message = e.toString();

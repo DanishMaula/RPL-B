@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
+import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
+
 import '../../common_widget/event_item_item_list.dart';
 import '../../common_widget/text_field_widget.dart';
 import '../../data/model/event.dart';
 
 class SeeAllEventPage extends StatefulWidget {
   static const String routeName = '/see-all-event-page';
+  final Future<List<Event>> listEvent;
 
-  const SeeAllEventPage({Key? key}) : super(key: key);
+  const SeeAllEventPage({Key? key, required this.listEvent}) : super(key: key);
 
   @override
   State<SeeAllEventPage> createState() => _SeeAllEventPageState();
@@ -38,7 +42,8 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
             context,
             MaterialPageRoute(
               builder: (context) => const UploadPhotoPage(
-                type: 'event', event: 'event kontol',
+                type: 'event',
+                event: 'event kontol',
               ),
             ),
           );
@@ -47,32 +52,43 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
       ),
       body: SafeArea(
         child: ListView(
+          physics: BouncingScrollPhysics(),
           padding: const EdgeInsets.all(16),
           children: [
             TextfieldWidget(
-              hintText: 'Cari Gambar',
+              hintText: 'Cari Event',
               controller: _searchController,
               prefixIcon: const Icon(Icons.search),
             ),
             const SizedBox(height: 16),
             SizedBox(
-              child: MasonryGridView.count(
-                physics: const BouncingScrollPhysics(),
-                clipBehavior: Clip.none,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                scrollDirection: Axis.vertical,
-                itemCount: listEventDummy.length,
-                itemBuilder: (context, index) {
-                  return EventItemList(
-                    event: listEventDummy[index],
-                    index: index,
-                    length: listEventDummy.length,
-                  );
-                },
-              ),
+              child: FutureBuilder(
+                  future: widget.listEvent,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return MasonryGridView.count(
+                        physics: const BouncingScrollPhysics(),
+                        clipBehavior: Clip.none,
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        scrollDirection: Axis.vertical,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return EventItemList(
+                            event: snapshot.data![index],
+                            index: index,
+                            length: snapshot.data!.length,
+                          );
+                        },
+                      );
+                    }
+                  }),
             )
           ],
         ),

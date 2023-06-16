@@ -6,7 +6,7 @@ TextStyle _getTextStyle(
   FontWeight fontWeight,
   Color color,
 ) {
-  return GoogleFonts.poppins().copyWith(
+  return GoogleFonts.inter().copyWith(
     fontSize: fontSize,
     fontWeight: fontWeight,
     color: color,

@@ -89,17 +89,17 @@ class HomePage extends StatelessWidget {
                 ),
 
                 // Events
-                ListWidget(
-                  title: "Events",
-                  onSeeAllClick: () {
-                    Navigator.pushNamed(context, SeeAllEventPage.routeName);
-                  },
-                  listView: SizedBox(
-                    height: 210,
-                    child: Consumer<EventProvider>(
-                      builder: (context, value, _) {
-                        return FutureBuilder(
-                            future: value.getHomeEventList(),
+                Consumer<EventProvider>(
+                  builder: (context, value, widget) {
+                    return ListWidget(
+                      title: "Events",
+                      onSeeAllClick: () {
+                        Navigator.pushNamed(context, SeeAllEventPage.routeName, arguments: value.getEventList() );
+                      },
+                      listView: SizedBox(
+                        height: 210,
+                        child: FutureBuilder(
+                            future: value.getEventList(),
                             builder: (BuildContext context,
                                 AsyncSnapshot<List<Event>> snapshot) {
                               if (snapshot.data == null) {
@@ -123,10 +123,10 @@ class HomePage extends StatelessWidget {
                                               : snapshot.data!.length);
                                     });
                               }
-                            });
-                      },
-                    ),
-                  ),
+                            }),
+                      ),
+                    );
+                  }
                 ),
 
                 // People

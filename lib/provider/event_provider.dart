@@ -19,7 +19,7 @@ class EventProvider extends ChangeNotifier{
 
   Reference get firebaseStorage => FirebaseStorage.instance.ref();
 
-  Future<List<Event>> getHomeEventList() async {
+  Future<List<Event>> getEventList() async {
     List<Event> listEvent = [];
 
     Reference parentRef = firebaseStorage.child("event");

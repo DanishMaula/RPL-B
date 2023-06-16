@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/data/model/event.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/provider/memories_provider.dart';
 import 'package:rpl_b/provider/people_provider.dart';
@@ -94,7 +95,9 @@ class _MyAppState extends State<MyApp> {
       routes: {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
-        SeeAllEventPage.routeName: (context) => const SeeAllEventPage(),
+        SeeAllEventPage.routeName: (context) => SeeAllEventPage(
+          listEvent: ModalRoute.of(context)?.settings.arguments as Future<List<Event>>,
+        ),
         SeeAllPeoplePage.routeName: (context) => const SeeAllPeoplePage(),
         SeeAllMemoriesPage.routeName: (context) => const SeeAllMemoriesPage(),
         UploadPhotoPage.routeName: (context) => UploadPhotoPage(

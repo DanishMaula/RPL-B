@@ -1,6 +1,6 @@
-# rpl_b
+# RPL B
 
-A new Flutter project.
+RPLB Official Gallery Applications
 
 ## Getting Started
 

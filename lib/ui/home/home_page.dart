@@ -94,41 +94,40 @@ class HomePage extends StatelessWidget {
                 // Events
                 Consumer<EventProvider>(
                     builder: (context, value, widget) {
-                      return ListWidget(
-                        title: "Events",
-                        onSeeAllClick: () {
-                          Navigator.pushNamed(context, SeeAllEventPage
-                              .routeName, arguments: value.getEventList());
-                        },
-                        listView: SizedBox(
-                          height: 210,
-                          child: FutureBuilder(
-                              future: value.getEventList(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<Event>> snapshot) {
-                                if (snapshot.data == null) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      clipBehavior: Clip.none,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: snapshot.data!.length > 5
-                                          ? 5
-                                          : snapshot.data!.length,
-                                      itemBuilder: (context, index) {
-                                        return EventItemList(
-                                            event: snapshot.data![index],
-                                            index: index,
-                                            length: snapshot.data!.length > 5
-                                                ? 5
-                                                : snapshot.data!.length);
-                                      });
-                                }
-                              }),
-                        ),
+                      return FutureBuilder(
+                        future: value.getEventList(),
+                        builder: (context, snapshot) {
+                          if(snapshot.data != null) {
+                            return ListWidget(
+                              title: "Events",
+                              onSeeAllClick: () {
+                                Navigator.pushNamed(context, SeeAllEventPage
+                                    .routeName, arguments: snapshot.data);
+                              },
+                              listView: SizedBox(
+                                height: 210,
+                                child: ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    clipBehavior: Clip.none,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.length > 5
+                                        ? 5
+                                        : snapshot.data!.length,
+                                    itemBuilder: (context, index) {
+                                      return EventItemList(
+                                          event: snapshot.data![index],
+                                          index: index,
+                                          length: snapshot.data!.length > 5
+                                              ? 5
+                                              : snapshot.data!.length);
+                                    }),
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
+
+                        }
                       );
                     }
                 ),
@@ -145,7 +144,7 @@ class HomePage extends StatelessWidget {
                                 onSeeAllClick: () {
                                   Navigator.pushNamed(
                                       context, SeeAllPeoplePage.routeName,
-                                      arguments: snapshot!.data);
+                                      arguments: snapshot.data);
                                 },
                                 listView: SizedBox(
                                     height: 150,

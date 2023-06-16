@@ -10,7 +10,7 @@ import '../../data/model/event.dart';
 
 class SeeAllEventPage extends StatefulWidget {
   static const String routeName = '/see-all-event-page';
-  final Future<List<Event>> listEvent;
+  final List<Event> listEvent;
 
   const SeeAllEventPage({Key? key, required this.listEvent}) : super(key: key);
 
@@ -62,33 +62,23 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              child: FutureBuilder(
-                  future: widget.listEvent,
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return MasonryGridView.count(
-                        physics: const BouncingScrollPhysics(),
-                        clipBehavior: Clip.none,
-                        shrinkWrap: true,
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        scrollDirection: Axis.vertical,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return EventItemList(
-                            event: snapshot.data![index],
-                            index: index,
-                            length: snapshot.data!.length,
-                          );
-                        },
-                      );
-                    }
-                  }),
+              child: MasonryGridView.count(
+                physics: const BouncingScrollPhysics(),
+                clipBehavior: Clip.none,
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                scrollDirection: Axis.vertical,
+                itemCount: widget.listEvent.length,
+                itemBuilder: (context, index) {
+                  return EventItemList(
+                    event: widget.listEvent[index],
+                    index: index,
+                    length: widget.listEvent.length,
+                  );
+                },
+              )
             )
           ],
         ),

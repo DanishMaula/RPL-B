@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
                     return ListWidget(
                       title: "People",
                       onSeeAllClick: () {
-                        Navigator.pushNamed(context, SeeAllPeoplePage.routeName, arguments: value.getPeopleList() );
+                        Navigator.pushNamed(context, SeeAllPeoplePage.routeName, arguments: value.getPeopleList());
                       },
                       listView: SizedBox(
                         height: 150,

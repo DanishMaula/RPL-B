@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 
 import '../common_widget/event_item_list.dart';
 import '../data/model/event.dart';
+import '../provider/event_provider.dart';
 
 class EventDetailPage extends StatefulWidget {
   final String event;
@@ -53,22 +55,35 @@ class _EventDetailPageState extends State<EventDetailPage> {
           children: [
             const SizedBox(height: 16),
             SizedBox(
-              child: MasonryGridView.count(
-                physics: const BouncingScrollPhysics(),
-                clipBehavior: Clip.none,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                scrollDirection: Axis.vertical,
-                itemCount: listEventDummy.length,
-                itemBuilder: (context, index) {
-                  return EventItemList(
-                    event: listEventDummy[index],
-                    index: index,
-                    length: listEventDummy.length,
+              child: Consumer<EventProvider>(
+                builder: (context, value, _) {
+                  return FutureBuilder(
+                    future: value.getDetailEventList(widget.event),
+                    builder: (context, snapshot) {
+                      if(snapshot.data != null){
+                        return MasonryGridView.count(
+                          physics: const BouncingScrollPhysics(),
+                          clipBehavior: Clip.none,
+                          shrinkWrap: true,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          scrollDirection: Axis.vertical,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return EventItemList(
+                              event: snapshot.data![index],
+                              index: index,
+                              length: snapshot.data!.length,
+                            );
+                          },
+                        );
+                      } else {
+                        return Container();
+                      }
+                    }
                   );
-                },
+                }
               ),
             )
           ],

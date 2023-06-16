@@ -23,7 +23,7 @@ class EventItemList extends StatelessWidget {
           Navigator.pushNamed(
             context,
             EventDetailPage.routeName,
-            arguments: event.title,
+            arguments: event.title.toLowerCase(),
           );
         },
         child: Padding(

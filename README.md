@@ -2,6 +2,8 @@
 
 <p align="center">RPL B Official Gallery Application</p>
 
+## Currently Only For Android
+
 ## Links
 
 - [Repo](https://github.com/DanishMaula/RPL-B "RPLB-B Repo")
@@ -20,7 +22,7 @@
 
 ## Future Updates
 
-- [ ] Reliable Storage
+- [ ] Optimized for IOS
 
 ## Creators 😁
 

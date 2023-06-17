@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:rpl_b/utils/style_manager.dart';
-import 'package:image_downloader/image_downloader.dart';
 
 class ViewPhoto extends StatelessWidget {
   static const routeName = '/view_photo';
@@ -24,7 +23,7 @@ class ViewPhoto extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  ImageDownloader.downloadImage(imageProvider.toString());
+                  // ImageDownloader.downloadImage(imageProvider.toString());
                 },
                 icon: const Icon(
                   Icons.download_rounded,

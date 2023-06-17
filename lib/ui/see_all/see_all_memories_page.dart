@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/data/model/memories.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
+import 'package:rpl_b/utils/type.dart';
 
 import '../../common_widget/image_item_list.dart';
 import '../view_photo.dart';

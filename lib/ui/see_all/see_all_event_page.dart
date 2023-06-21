@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rpl_b/common_widget/see_all_event_item.dart';
 import 'package:rpl_b/provider/event_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 import 'package:rpl_b/utils/type.dart';
@@ -62,24 +63,23 @@ class _SeeAllEventPageState extends State<SeeAllEventPage> {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              child: MasonryGridView.count(
-                physics: const BouncingScrollPhysics(),
-                clipBehavior: Clip.none,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                mainAxisSpacing: 16,
-                crossAxisSpacing: 16,
-                scrollDirection: Axis.vertical,
-                itemCount: widget.listEvent.length,
-                itemBuilder: (context, index) {
-                  return EventItemList(
-                    event: widget.listEvent[index],
-                    index: index,
-                    length: widget.listEvent.length,
-                  );
-                },
-              )
-            )
+                child: MasonryGridView.count(
+              physics: const BouncingScrollPhysics(),
+              clipBehavior: Clip.none,
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              scrollDirection: Axis.vertical,
+              itemCount: widget.listEvent.length,
+              itemBuilder: (context, index) {
+                return SeeAllEventItem(
+                  event: widget.listEvent[index],
+                  index: index,
+                  length: widget.listEvent.length,
+                );
+              },
+            ))
           ],
         ),
       ),

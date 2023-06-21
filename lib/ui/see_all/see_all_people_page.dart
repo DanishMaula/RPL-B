@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rpl_b/common_widget/people_item_list.dart';
+import 'package:rpl_b/common_widget/see_all_people_item.dart';
 
 import '../../common_widget/text_field_widget.dart';
 import '../../data/model/people.dart';
@@ -18,7 +19,6 @@ class SeeAllPeoplePage extends StatefulWidget {
 }
 
 class _SeeAllPeoplePageState extends State<SeeAllPeoplePage> {
-
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -45,24 +45,22 @@ class _SeeAllPeoplePageState extends State<SeeAllPeoplePage> {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                clipBehavior: Clip.none,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2
-                ),
-                scrollDirection: Axis.vertical,
-                itemCount: widget.listPeople.length,
-                itemBuilder: (context, index) {
-                  return PeopleItemList(
-                    people: widget.listPeople[index],
-                    index: index,
-                    length: widget.listPeople.length,
-                  );
-                },
-              )
-            )
+                child: GridView.builder(
+              physics: const BouncingScrollPhysics(),
+              clipBehavior: Clip.none,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
+              scrollDirection: Axis.vertical,
+              itemCount: widget.listPeople.length,
+              itemBuilder: (context, index) {
+                return SeeAllPeopleItem(
+                  people: widget.listPeople[index],
+                  index: index,
+                  length: widget.listPeople.length,
+                );
+              },
+            ))
           ],
         ),
       ),

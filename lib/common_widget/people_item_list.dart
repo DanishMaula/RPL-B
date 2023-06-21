@@ -49,7 +49,7 @@ class PeopleItemList extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               people.name,
               style: getBlackTextStyle(fontSize: 14),

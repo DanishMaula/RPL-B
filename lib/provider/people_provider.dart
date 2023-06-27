@@ -27,7 +27,11 @@ class PeopleProvider extends ChangeNotifier {
 
     for (var item in result.prefixes) {
       String folderName = item.name;
+
       String imageUrl;
+      if(listPeople.length < 3 && folderName != "fatilla" && folderName != "miqdad" && folderName != "danish"){
+        continue;
+      }
 
       try {
         imageUrl = await parentRef
@@ -43,8 +47,6 @@ class PeopleProvider extends ChangeNotifier {
 
       listPeople.add(people);
     }
-
-    listPeople.shuffle();
 
     return listPeople;
   }

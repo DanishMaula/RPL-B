@@ -51,8 +51,14 @@ class EventProvider extends ChangeNotifier{
     try {
       String imageUrl = '';
       Reference dirImagesRef = firebaseStorage.child('event').child(event.toLowerCase());
-      Reference fileRef = dirImagesRef.child('$fileName.png');
-      await fileRef.putFile(File(imageFile.path));
+      Reference fileRef = dirImagesRef.child(fileName);
+      try{
+        await dirImagesRef.child(fileName).getDownloadURL();
+        print('data ada');
+      }catch(e){
+        print('data tidak ada');
+        await fileRef.putFile(File(imageFile.path));
+      }
       imageUrl = await fileRef.getDownloadURL();
     } on FirebaseException catch (e) {
       _state = ResultState.error;

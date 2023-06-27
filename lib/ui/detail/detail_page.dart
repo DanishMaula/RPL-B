@@ -5,6 +5,7 @@ import 'package:rpl_b/common_widget/image_item_list.dart';
 import 'package:rpl_b/provider/detail_provider.dart';
 import 'package:rpl_b/ui/upload_photo_page.dart';
 import '../../utils/type.dart';
+import '../view_photo.dart';
 
 class DetailPage extends StatefulWidget {
 
@@ -81,7 +82,12 @@ class _DetailPageState extends State<DetailPage> {
                             return ImageItem(
                               imageUrl: snapshot.data![index],
                               index: index,
-                              onClick: () {},
+                              onClick: () {
+                                Navigator.pushNamed(
+                                    context, ViewPhoto.routeName,
+                                    arguments: NetworkImage(
+                                        snapshot.data![index]));
+                              },
                             );
                           },
                         );
